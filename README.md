@@ -1,10 +1,58 @@
-### Маслова Т.Д. ИП-21-3 
-#### Инструментальные средства разработки программного обеспечения
-### Задание 12: Web API системы накладных Склада Гвоздей
+# Web API СЃРёСЃС‚РµРјС‹ РЅР°РєР»Р°РґРЅС‹С… РЎРєР»Р°РґР° Р“РІРѕР·РґРµР№
+### РњР°СЃР»РѕРІР° Рў.Р”. РРџ-21-3 
+#### РРЅСЃС‚СЂСѓРјРµРЅС‚Р°Р»СЊРЅС‹Рµ СЃСЂРµРґСЃС‚РІР° СЂР°Р·СЂР°Р±РѕС‚РєРё РїСЂРѕРіСЂР°РјРјРЅРѕРіРѕ РѕР±РµСЃРїРµС‡РµРЅРёСЏ
 
-#### Описание:
+### РћРїРёСЃР°РЅРёРµ:
 
-* Покупатели могут купить товары со склада гвоздей. Для этого составляется товарная накладная, которая включает в себя: Номер накладной, её дату создания,
-данные покупателя (Наименование, ИНН, адрес), список покупаемых товаров, их итоговый налог и итоговую сумму.
+* РџРѕРєСѓРїР°С‚РµР»Рё РјРѕРіСѓС‚ РєСѓРїРёС‚СЊ С‚РѕРІР°СЂС‹ СЃРѕ СЃРєР»Р°РґР° РіРІРѕР·РґРµР№. Р”Р»СЏ СЌС‚РѕРіРѕ СЃРѕСЃС‚Р°РІР»СЏРµС‚СЃСЏ С‚РѕРІР°СЂРЅР°СЏ РЅР°РєР»Р°РґРЅР°СЏ, РєРѕС‚РѕСЂР°СЏ РІРєР»СЋС‡Р°РµС‚ РІ СЃРµР±СЏ: РќРѕРјРµСЂ РЅР°РєР»Р°РґРЅРѕР№, РµС‘ РґР°С‚Сѓ РёСЃРїРѕР»РЅРµРЅРёСЏ,
+РґР°РЅРЅС‹Рµ РїРѕРєСѓРїР°С‚РµР»СЏ (РќР°РёРјРµРЅРѕРІР°РЅРёРµ, РРќРќ, Р°РґСЂРµСЃ), СЃРїРёСЃРѕРє РїРѕРєСѓРїР°РµРјС‹С… С‚РѕРІР°СЂРѕРІ, РёС… РёС‚РѕРіРѕРІС‹Р№ РЅР°Р»РѕРі Рё РёС‚РѕРіРѕРІСѓСЋ СЃСѓРјРјСѓ.
 
-* Для этого была разработана База Данных системы накладных Склада Гвоздей:
+* Р”Р»СЏ СЌС‚РѕРіРѕ Р±С‹Р»Р° СЂР°Р·СЂР°Р±РѕС‚Р°РЅР° Р‘Р°Р·Р° Р”Р°РЅРЅС‹С… СЃРёСЃС‚РµРјС‹ РЅР°РєР»Р°РґРЅС‹С… РЎРєР»Р°РґР° Р“РІРѕР·РґРµР№:
+
+```mermaid
+  classDiagram
+    Sale <|-- Product
+    Sale <|-- Invoice
+    Invoice <|-- Customer
+
+    class Sale{
+      +UniqueIdentifier IdSale
+      +UniqueIdentifier ProductId
+      +UniqueIdentifier InvoiceId
+      +int SoldCount
+      -
+      -DateTimeOffset CreatedDate
+      -DateTimeOffset UpdatedDate
+      -DateTimeOffset DeletedDate 
+    }
+    class Invoice{
+      +UniqueIdentifier IdInvoice
+      +UniqueIdentifier CustomerId
+      +DateTimeOffset ExecutionDate
+      -
+      -DateTimeOffset CreatedDate
+      -DateTimeOffset UpdatedDate
+      -DateTimeOffset DeletedDate 
+    }
+    class Customer{
+      +UniqueIdentifier IdCustomer
+      +nvarchar[255] Name
+      +varchar[12] INN
+      +nvarchar[1023] Address
+      -
+      -DateTimeOffset CreatedDate
+      -DateTimeOffset UpdatedDate
+      -DateTimeOffset DeletedDate 
+    }
+    class Product{
+      +UniqueIdentifier IdProduct
+      +nvarchar[255] Name
+      +decimal Price
+      -
+      -DateTimeOffset CreatedDate
+      -DateTimeOffset UpdatedDate
+      -DateTimeOffset DeletedDate 
+    }
+```
+
+* Р“РѕС‚РѕРІР°СЏ РЅР°РєР»Р°РґРЅР°СЏ РґРѕР»Р¶РЅР° РІС‹РіР»СЏРґРµС‚СЊ С‚Р°Рє: 
