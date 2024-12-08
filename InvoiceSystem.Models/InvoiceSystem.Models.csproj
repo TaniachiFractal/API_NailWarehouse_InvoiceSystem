@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InvoiceSystem.Database.Contracts\InvoiceSystem.Database.Contracts.csproj" />
+    <ProjectReference Include="..\InvoiceSystem.Models.Interfaces\InvoiceSystem.Models.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

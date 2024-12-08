@@ -4,7 +4,7 @@
 
 ### Описание:
 
-Покупатели могут купить товары со склада гвоздей. Для этого составляется товарная накладная, которая включает в себя: Номер накладной, её дату исполнения,
+Покупатели могут заказать товары со склада гвоздей. Для этого составляется товарная накладная, которая включает в себя: Номер накладной, её дату исполнения,
 данные покупателя (Наименование, ИНН, адрес), список покупаемых товаров, их итоговый налог и итоговую сумму.
 
 ### Шаблон готовой накладной: 
@@ -20,7 +20,7 @@
     Invoice <|-- Customer
 
     class Sale{
-      +UniqueIdentifier IdSale
+      +UniqueIdentifier Id
       +UniqueIdentifier ProductId
       +UniqueIdentifier InvoiceId
       +int SoldCount
@@ -30,7 +30,7 @@
       -DateTimeOffset DeletedDate 
     }
     class Invoice{
-      +UniqueIdentifier IdInvoice
+      +UniqueIdentifier Id
       +UniqueIdentifier CustomerId
       +DateTimeOffset ExecutionDate
       -
@@ -39,7 +39,7 @@
       -DateTimeOffset DeletedDate 
     }
     class Customer{
-      +UniqueIdentifier IdCustomer
+      +UniqueIdentifier Id
       +nvarchar[255] Name
       +varchar[12] INN
       +nvarchar[1023] Address
@@ -49,7 +49,7 @@
       -DateTimeOffset DeletedDate 
     }
     class Product{
-      +UniqueIdentifier IdProduct
+      +UniqueIdentifier Id
       +nvarchar[255] Name
       +decimal Price
       -
@@ -59,7 +59,8 @@
     }
 ```
 
-### SQL запросы добавления данных в БД
+### SQL запросы добавления данных в БД:
+
 ```sql
 TODO;
 ```
