@@ -1,5 +1,4 @@
-﻿using InvoiceSystem.Models.Customers;
-using InvoiceSystem.Models.Invoices;
+﻿using InvoiceSystem.Models.Invoices;
 using InvoiceSystem.Models.Products;
 using InvoiceSystem.Models.Sales;
 using Microsoft.EntityFrameworkCore;

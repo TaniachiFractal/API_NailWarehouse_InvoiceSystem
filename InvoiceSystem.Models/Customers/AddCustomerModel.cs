@@ -8,12 +8,12 @@ namespace InvoiceSystem.Models.Customers
     public class AddCustomerModel : ICustomer
     {
         /// <inheritdoc/>
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         /// <inheritdoc/>
-        public string? INN { get; set; }
+        public string INN { get; set; }
 
         /// <inheritdoc/>
-        public string? Address { get; set; }
+        public string Address { get; set; }
     }
 }

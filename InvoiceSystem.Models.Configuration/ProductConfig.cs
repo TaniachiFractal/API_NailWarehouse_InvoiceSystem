@@ -9,6 +9,8 @@ namespace InvoiceSystem.Models.Configuration
     /// </summary>
     public class ProductConfig : IEntityTypeConfiguration<Product>
     {
+        private const int PricePrecision = 20, PriceScale = 4;
+
         void IEntityTypeConfiguration<Product>.Configure(EntityTypeBuilder<Product> builder)
         {
             builder.ToTable($"{nameof(Product)}s");
@@ -23,7 +25,7 @@ namespace InvoiceSystem.Models.Configuration
                 ;
 
             builder.HasIndex(x => x.Name)
-                .HasDatabaseName(Cnst.IndexFormatString(nameof(Product), nameof(Product.Name)))
+                .HasDatabaseName(Cnst.IndexFormatString(nameof(Product.Name)))
                 .IsUnique()
                 .HasFilter(Cnst.DeletedFilterStr)
                 ;
@@ -34,7 +36,7 @@ namespace InvoiceSystem.Models.Configuration
 
             builder.Property(x => x.Price)
                 .IsRequired()
-                .HasPrecision(4)
+                .HasPrecision(PricePrecision, PriceScale)
                 ;
 
             #endregion

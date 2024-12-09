@@ -8,16 +8,16 @@
         /// <summary>
         /// Название организации
         /// </summary>
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// ИНН
         /// </summary>
-        public string? INN { get; set; }
+        public string INN { get; set; }
 
         /// <summary>
         /// Адрес
         /// </summary>
-        public string? Address { get; set; }
+        public string Address { get; set; }
     }
 }

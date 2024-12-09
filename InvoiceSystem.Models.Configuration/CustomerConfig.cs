@@ -23,7 +23,7 @@ namespace InvoiceSystem.Models.Configuration
                 ;
 
             builder.HasIndex(x => x.Name)
-                .HasDatabaseName(Cnst.IndexFormatString(nameof(Customer), nameof(Customer.Name)))
+                .HasDatabaseName(Cnst.IndexFormatString(nameof(Customer.Name)))
                 .IsUnique()
                 .HasFilter(Cnst.DeletedFilterStr)
                 ;
@@ -39,7 +39,7 @@ namespace InvoiceSystem.Models.Configuration
                 ;
 
             builder.HasIndex(x => x.INN)
-                .HasDatabaseName(Cnst.IndexFormatString(nameof(Customer), nameof(Customer.INN)))
+                .HasDatabaseName(Cnst.IndexFormatString(nameof(Customer.INN)))
                 .IsUnique()
                 .HasFilter(Cnst.DeletedFilterStr)
                 ;

@@ -8,7 +8,7 @@
         /// <summary>
         /// Название
         /// </summary>
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Цена в рублях

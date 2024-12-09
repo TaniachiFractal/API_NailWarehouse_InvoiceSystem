@@ -8,7 +8,7 @@ namespace InvoiceSystem.Models.Products
     public class AddProductModel : IProduct
     {
         /// <inheritdoc/> 
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         /// <inheritdoc/> 
         public decimal Price { get; set; }
