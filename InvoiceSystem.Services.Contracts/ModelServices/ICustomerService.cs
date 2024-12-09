@@ -5,7 +5,7 @@ namespace InvoiceSystem.Services.Contracts.ModelServices
     /// <summary>
     /// Сервис <see cref="Customer"/>
     /// </summary>
-    public interface ICustomerService : IDBobjectService
+    public interface ICustomerService : IDBobjectService<AddCustomerModel, CustomerModel>
     {
         /// <summary>
         /// Получить ID покупателя по имени

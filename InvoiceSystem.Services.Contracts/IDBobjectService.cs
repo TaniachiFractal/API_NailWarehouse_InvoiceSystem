@@ -1,32 +1,35 @@
-﻿namespace InvoiceSystem.Services.Contracts
+﻿using InvoiceSystem.Database.Contracts;
+using InvoiceSystem.Models;
+
+namespace InvoiceSystem.Services.Contracts
 {
     /// <summary>
     /// Реализует общие CRUD операции
     /// </summary>
-    public interface IDBobjectService
+    public interface IDBobjectService<TAddObjectModel, TObjectModel> where TObjectModel : IUniqueID
     {
         /// <summary>
-        /// Получить все данные таблицы модели
+        /// Получить все данные таблицы <see cref="DBObject"/>
         /// </summary>
-        Task<IReadOnlyCollection<TModel>> GetAll<TModel>(CancellationToken cancellationToken);
+        Task<IReadOnlyCollection<TObjectModel>> GetAll(CancellationToken cancellationToken);
 
         /// <summary>
-        /// Получить модель по ID
+        /// Получить <see cref="DBObject"/> по ID
         /// </summary>
-        Task<Tmodel> GetById<Tmodel>(Guid id, CancellationToken cancellationToken);
+        Task<TObjectModel> GetById(Guid id, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Добавить модель
+        /// Добавить <see cref="DBObject"/>
         /// </summary>
-        Task<Guid> Add<TModel>(TModel model, CancellationToken cancellationToken);
+        Task<Guid> Add(TAddObjectModel model, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Редактировать модель
+        /// Редактировать <see cref="DBObject"/>
         /// </summary>
-        Task Edit<TModel>(TModel model, CancellationToken cancellationToken);
+        Task Edit(TAddObjectModel model, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Удалить модель
+        /// Удалить <see cref="DBObject"/>
         /// </summary>
         Task Delete(Guid id, CancellationToken cancellationToken);
     }
