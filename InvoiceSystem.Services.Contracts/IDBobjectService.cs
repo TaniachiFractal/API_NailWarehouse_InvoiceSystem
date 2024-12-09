@@ -1,4 +1,4 @@
-﻿namespace InvoiceSystem.Services
+﻿namespace InvoiceSystem.Services.Contracts
 {
     /// <summary>
     /// Реализует общие CRUD операции
@@ -6,7 +6,7 @@
     public interface IDBobjectService
     {
         /// <summary>
-        /// Получить всю таблицу модели
+        /// Получить все данные таблицы модели
         /// </summary>
         Task<IReadOnlyCollection<TModel>> GetAll<TModel>(CancellationToken cancellationToken);
 

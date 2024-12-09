@@ -1,4 +1,4 @@
-﻿namespace InvoiceSystem.Services
+﻿namespace InvoiceSystem.Services.Contracts
 {
     /// <summary>
     /// Реализует валидацию

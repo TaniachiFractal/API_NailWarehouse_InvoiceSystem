@@ -3,15 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\Invoices\" />
-    <Folder Include="Models\Customers\" />
-    <Folder Include="Models\Products\" />
-    <Folder Include="Models\Sales\" />
-  </ItemGroup>
 
 </Project>
