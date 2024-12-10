@@ -1,7 +1,7 @@
 ﻿namespace InvoiceSystem.Models.Interfaces
 {
     /// <summary>
-    /// Имеет поля данных поставщика
+    /// Имеет поля данных покупателя
     /// </summary>
     public interface ICustomer
     {
