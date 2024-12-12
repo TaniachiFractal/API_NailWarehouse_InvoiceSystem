@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InvoiceSystem.Services.Exceptions
+﻿namespace InvoiceSystem.Services.Exceptions
 {
     /// <summary>
     /// Ошибка "Не найдено"
     /// </summary>
     public class NotFoundException : DBObjectException
     {
-        public NotFoundException(string message) : base(message)
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        public NotFoundException(Guid id, string typeName)
+            : base($"Ошибка: объект {typeName} с id {id} не найден.")
         {
         }
     }

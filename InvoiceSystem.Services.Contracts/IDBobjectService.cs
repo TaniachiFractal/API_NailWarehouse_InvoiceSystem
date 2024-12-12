@@ -1,12 +1,15 @@
 ﻿using InvoiceSystem.Database.Contracts;
 using InvoiceSystem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace InvoiceSystem.Services.Contracts
 {
     /// <summary>
     /// Реализует общие CRUD операции
     /// </summary>
-    public interface IDBobjectService<TAddObjectModel, TObjectModel> where TObjectModel : IUniqueID
+    public interface IDBobjectService<TAddObjectModel, TObjectModel, TObject>
+        where TObject : DBObject
+        where TObjectModel : IUniqueID
     {
         /// <summary>
         /// Получить все данные таблицы <see cref="DBObject"/>
