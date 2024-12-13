@@ -11,9 +11,6 @@ namespace InvoiceSystem.Services
     /// <summary>
     /// Стандартный сервис
     /// </summary>
-    /// <typeparam name="TAddObjectModel">Модель добавления</typeparam>
-    /// <typeparam name="TObjectModel">Модель чтения с ID</typeparam>
-    /// <typeparam name="TObject">Объект из которого состоит таблица</typeparam>
     public class DBObjectService<TAddObjectModel, TObjectModel, TObject> : IDBobjectService<TAddObjectModel, TObjectModel, TObject>
         where TObject : DBObject
         where TObjectModel : IUniqueID, TAddObjectModel
@@ -36,7 +33,6 @@ namespace InvoiceSystem.Services
         public async Task<Guid> Add(TAddObjectModel model, CancellationToken cancellationToken)
         {
             var item = mapper.Map<TObject>(model);
-            item.CreatedDate = DateTimeOffset.Now;
             table.Add(item);
             await dbContext.SaveChangesAsync(cancellationToken);
             return item.Id;

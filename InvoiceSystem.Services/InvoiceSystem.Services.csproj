@@ -16,10 +16,4 @@
     <ProjectReference Include="..\InvoiceSystem.Services.Contracts\InvoiceSystem.Services.Contracts.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\Invoices\" />
-    <Folder Include="Models\Sales\" />
-    <Folder Include="Models\Products\" />
-  </ItemGroup>
-
 </Project>
