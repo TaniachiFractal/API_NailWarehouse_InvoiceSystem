@@ -7,6 +7,7 @@ namespace InvoiceSystem.Database.Migrations
 {
     public partial class InitialCreate : Migration
     {
+        /// <inheritdoc/>
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -130,6 +131,7 @@ namespace InvoiceSystem.Database.Migrations
                 column: "ProductId");
         }
 
+        /// <inheritdoc/>
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

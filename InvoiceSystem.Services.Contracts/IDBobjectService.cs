@@ -1,6 +1,5 @@
 ﻿using InvoiceSystem.Database.Contracts;
 using InvoiceSystem.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace InvoiceSystem.Services.Contracts
 {
@@ -9,7 +8,7 @@ namespace InvoiceSystem.Services.Contracts
     /// </summary>
     public interface IDBobjectService<TAddObjectModel, TObjectModel, TObject>
         where TObject : DBObject
-        where TObjectModel : IUniqueID
+        where TObjectModel : IUniqueID, TAddObjectModel
     {
         /// <summary>
         /// Получить все данные таблицы <see cref="DBObject"/>
@@ -29,7 +28,7 @@ namespace InvoiceSystem.Services.Contracts
         /// <summary>
         /// Редактировать <see cref="DBObject"/>
         /// </summary>
-        Task Edit(TAddObjectModel model, CancellationToken cancellationToken);
+        Task Edit(TObjectModel model, CancellationToken cancellationToken);
 
         /// <summary>
         /// Удалить <see cref="DBObject"/>

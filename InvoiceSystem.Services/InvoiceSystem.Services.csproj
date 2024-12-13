@@ -7,18 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Invoices\" />
-    <Folder Include="Models\Products\" />
-    <Folder Include="Models\Sales\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\InvoiceSystem.Database\InvoiceSystem.Database.csproj" />
     <ProjectReference Include="..\InvoiceSystem.Services.Contracts\InvoiceSystem.Services.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Invoices\" />
+    <Folder Include="Models\Sales\" />
+    <Folder Include="Models\Products\" />
   </ItemGroup>
 
 </Project>

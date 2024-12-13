@@ -11,10 +11,12 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InvoiceSystem.Database.Migrations
 {
+    /// <inheritdoc/>
     [DbContext(typeof(InvcSysDBContext))]
     [Migration("20241209135521_InitialCreate")]
     partial class InitialCreate
     {
+        /// <inheritdoc/>
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
