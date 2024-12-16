@@ -8,6 +8,6 @@
         /// <summary>
         /// Сохранить изменения
         /// </summary>
-        Task<int> CommitAsync(CancellationToken cancellationToken = default);
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

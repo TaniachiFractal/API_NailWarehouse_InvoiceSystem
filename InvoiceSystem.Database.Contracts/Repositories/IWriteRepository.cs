@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace InvoiceSystem.Database.Contracts.DBInterfaces
+namespace InvoiceSystem.Database.Contracts.Repositories
 {
     /// <summary>
     /// Пишет данные в БД
     /// </summary>
-    public interface IDbWriter<in TEntity> where TEntity : class
+    public interface IWriteRepository<in TEntity> where TEntity : class
     {
         /// <summary>
         /// Добавить

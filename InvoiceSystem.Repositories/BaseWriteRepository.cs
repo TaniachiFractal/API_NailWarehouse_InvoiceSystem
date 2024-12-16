@@ -2,13 +2,14 @@
 using InvoiceSystem.Common;
 using InvoiceSystem.Database.Contracts.DBInterfaces;
 using InvoiceSystem.Database.Contracts.ModelInterfaces;
+using InvoiceSystem.Database.Contracts.Repositories;
 
-namespace InvoiceSystem.Database.Contracts
+namespace InvoiceSystem.Repositories
 {
     /// <summary>
     /// Стандартный репозиторий записи в БД
     /// </summary>
-    public abstract class BaseWriteRepository<T> : IDbWriter<T> where T : DBObject
+    public abstract class BaseWriteRepository<T> : IWriteRepository<T> where T : class
     {
         private readonly IWriter writer;
         private readonly IDateTimeOffsetProvider dateTimeOffsetProvider;
@@ -36,7 +37,11 @@ namespace InvoiceSystem.Database.Contracts
         /// <inheritdoc/>
         public void Delete([NotNull] T entity)
         {
+            foreach (var fieldInfo in entity.GetType().GetFields())
+            { fieldInfo.SetValue(entity, null); }
+
             AuditForUpdate(entity);
+
             if (entity is ISoftDeleted)
             {
                 AuditForDelete(entity);

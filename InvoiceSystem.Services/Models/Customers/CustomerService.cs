@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using InvoiceSystem.Database;
+using InvoiceSystem.Database.Contracts.DBInterfaces;
 using InvoiceSystem.Models.Customers;
+using InvoiceSystem.Repositories.Contracts.Customers;
 using InvoiceSystem.Services.Contracts.Models.Customers;
 
 namespace InvoiceSystem.Services.Models.Customers
@@ -13,7 +14,8 @@ namespace InvoiceSystem.Services.Models.Customers
         /// <summary>
         /// Конструктор
         /// </summary>
-        public CustomerService(InvcSysDBContext dbContext, IMapper mapper) : base(dbContext, dbContext.Customers, mapper)
+        public CustomerService(IMapper mapper, ICustomerReadRepository readRepository, ICustomerWriteRepository writeRepository, IUnitOfWork unitOfWork)
+            : base(mapper, readRepository, writeRepository, unitOfWork)
         {
         }
     }

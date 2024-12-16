@@ -8,7 +8,7 @@ namespace InvoiceSystem.Services
     /// <summary>
     /// Стандартный сервис валидации
     /// </summary>
-    public class DBObjectValidationService
+    public abstract class DBObjectValidationService
         <TObjectModel, TAddObjectModel, TObjectModelValidator, TAddObjectModelValidator> : IDBObjectValidationService
         where TObjectModel : IUniqueID, TAddObjectModel
         where TObjectModelValidator : AbstractValidator<TObjectModel>, new()

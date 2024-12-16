@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using InvoiceSystem.Database;
+using InvoiceSystem.Database.Contracts.DBInterfaces;
 using InvoiceSystem.Models.Sales;
+using InvoiceSystem.Repositories.Contracts.Sales;
 using InvoiceSystem.Services.Contracts.Models.Sales;
 
 namespace InvoiceSystem.Services.Models.Sales
@@ -13,7 +14,8 @@ namespace InvoiceSystem.Services.Models.Sales
         /// <summary>
         /// Конструктор
         /// </summary>
-        public SaleService(InvcSysDBContext dbContext, IMapper mapper) : base(dbContext, dbContext.Sales, mapper)
+        public SaleService(IMapper mapper, ISaleReadRepository readRepository, ISaleWriteRepository writeRepository, IUnitOfWork unitOfWork)
+            : base(mapper, readRepository, writeRepository, unitOfWork)
         {
         }
     }

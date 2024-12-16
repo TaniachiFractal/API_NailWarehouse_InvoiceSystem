@@ -1,98 +1,82 @@
 ﻿using AutoMapper;
-using InvoiceSystem.Database;
 using InvoiceSystem.Database.Contracts;
+using InvoiceSystem.Database.Contracts.DBInterfaces;
 using InvoiceSystem.Database.Contracts.ModelInterfaces;
+using InvoiceSystem.Database.Contracts.Repositories;
 using InvoiceSystem.Services.Contracts;
 using InvoiceSystem.Services.Exceptions;
-using Microsoft.EntityFrameworkCore;
 
 namespace InvoiceSystem.Services
 {
     /// <summary>
     /// Стандартный сервис
     /// </summary>
-    public class DBObjectService<TAddObjectModel, TObjectModel, TObject> : IDBobjectService<TAddObjectModel, TObjectModel, TObject>
+    public abstract class DBObjectService<TAddObjectModel, TObjectModel, TObject> : IDBobjectService<TAddObjectModel, TObjectModel, TObject>
         where TObject : DBObject
         where TObjectModel : IUniqueID, TAddObjectModel
     {
-        private readonly InvcSysDBContext dbContext;
         private readonly IMapper mapper;
-        private readonly DbSet<TObject> table;
+        private readonly IReadRepository<TObject> readRepository;
+        private readonly IWriteRepository<TObject> writeRepository;
+        private readonly IUnitOfWork unitOfWork;
 
         /// <summary>
         /// Конструктор
         /// </summary>
-        public DBObjectService(InvcSysDBContext dbContext, DbSet<TObject> table, IMapper mapper)
+        public DBObjectService(
+            IMapper mapper,
+            IReadRepository<TObject> readRepository,
+            IWriteRepository<TObject> writeRepository,
+            IUnitOfWork unitOfWork
+            )
         {
-            this.dbContext = dbContext;
-            this.table = table;
             this.mapper = mapper;
+            this.readRepository = readRepository;
+            this.writeRepository = writeRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         /// <inheritdoc/>
         public async Task<Guid> Add(TAddObjectModel model, CancellationToken cancellationToken)
         {
             var item = mapper.Map<TObject>(model);
-            table.Add(item);
-            await dbContext.SaveChangesAsync(cancellationToken);
+            writeRepository.Add(item);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
             return item.Id;
         }
 
         /// <inheritdoc/>
         public async Task Delete(Guid id, CancellationToken cancellationToken)
         {
-            var result = await
-                table.FirstOrDefaultAsync
-                (x => x.Id == id && x.DeletedDate == null, cancellationToken)
-                ?? throw new NotFoundException(id, nameof(TObject));
-
-            foreach (var fieldInfo in result.GetType().GetFields())
-            { fieldInfo.SetValue(result, null); }
-
-            result.DeletedDate = DateTimeOffset.Now;
-            table.Update(result);
-            await dbContext.SaveChangesAsync(cancellationToken);
-
+            var item = await readRepository.GetById(id, cancellationToken) ?? throw new NotFoundException(id, nameof(TObject));
+            writeRepository.Delete(item);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
         }
 
         /// <inheritdoc/>
         public async Task Edit(TObjectModel model, CancellationToken cancellationToken)
         {
-            var result = await
-                table.FirstOrDefaultAsync
-                (x => x.Id == model.Id && x.DeletedDate == null, cancellationToken)
-                ?? throw new NotFoundException(model.Id, nameof(TObject));
-
-            result = mapper.Map<TObject>(model);
-            result.UpdatedDate = DateTimeOffset.Now;
-
-            table.Update(result);
-            await dbContext.SaveChangesAsync(cancellationToken);
+            var _ = await readRepository.GetById(model.Id, cancellationToken) ?? throw new NotFoundException(model.Id, nameof(TObject));
+            var result = mapper.Map<TObject>(model);
+            writeRepository.Update(result);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
         }
 
         /// <inheritdoc/>
         public async Task<IReadOnlyCollection<TObjectModel>> GetAll(CancellationToken cancellationToken)
         {
-            var items = await table
-              .Where(x => x.DeletedDate == null)
-              .AsNoTracking()
-              .ToListAsync(cancellationToken);
+            var items = await readRepository.GetAll(cancellationToken);
             var result = mapper.Map<IReadOnlyCollection<TObjectModel>>(items);
             return result;
-
         }
 
         /// <inheritdoc/>
         public async Task<TObjectModel> GetById(Guid id, CancellationToken cancellationToken)
         {
-            var item = await table
-               .Where(x => x.Id == id && x.DeletedDate == null)
-               .AsNoTracking()
-               .FirstOrDefaultAsync(cancellationToken);
+            var item = await readRepository.GetById(id, cancellationToken);
             var result = mapper.Map<TObjectModel>(item);
-            return item == null
-                ? throw new NotFoundException(id, nameof(TObject)) : result;
+            return item == null ? throw new NotFoundException(id, nameof(TObject)) : result;
         }
     }
 }

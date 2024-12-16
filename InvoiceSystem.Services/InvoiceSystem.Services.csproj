@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\InvoiceSystem.Database\InvoiceSystem.Database.csproj" />
+    <ProjectReference Include="..\InvoiceSystem.Repositories.Contracts\InvoiceSystem.Repositories.Contracts.csproj" />
     <ProjectReference Include="..\InvoiceSystem.Services.Contracts\InvoiceSystem.Services.Contracts.csproj" />
   </ItemGroup>
 

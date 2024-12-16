@@ -4,13 +4,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Customers\" />
-    <Folder Include="Invoices\" />
-    <Folder Include="Products\" />
-    <Folder Include="Sales\" />
+    <ProjectReference Include="..\InvoiceSystem.Models\InvoiceSystem.Models.csproj" />
   </ItemGroup>
 
 </Project>

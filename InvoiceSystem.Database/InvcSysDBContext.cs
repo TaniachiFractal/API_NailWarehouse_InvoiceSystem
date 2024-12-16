@@ -70,7 +70,7 @@ namespace InvoiceSystem.Database
         void IWriter.Update<T>(T entity)
         => base.Entry(entity).State = EntityState.Modified;
 
-        async Task<int> IUnitOfWork.CommitAsync(CancellationToken cancellationToken)
+        async Task<int> IUnitOfWork.SaveChangesAsync(CancellationToken cancellationToken)
         {
             var count = await base.SaveChangesAsync(cancellationToken);
             foreach (var entry in base.ChangeTracker.Entries().ToArray())
