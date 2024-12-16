@@ -1,7 +1,7 @@
 ﻿namespace InvoiceSystem.Database.Contracts.Repositories
 {
     /// <summary>
-    /// Стандартные методы чтения
+    /// Стандартные методы чтения из БД
     /// </summary>
     public interface IReadRepository<T> where T : class
     {

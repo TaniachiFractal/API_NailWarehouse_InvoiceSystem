@@ -1,6 +1,7 @@
 ﻿using InvoiceSystem.Database.Contracts;
 using InvoiceSystem.Database.Contracts.DBInterfaces;
 using InvoiceSystem.Database.Contracts.Repositories;
+using InvoiceSystem.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace InvoiceSystem.Repositories

@@ -1,6 +1,6 @@
 ﻿using InvoiceSystem.Database.Contracts.ModelInterfaces;
 
-namespace InvoiceSystem.Database.Contracts
+namespace InvoiceSystem.Models
 {
     /// <summary>
     /// Объект, из которого можно создать таблицу в БД

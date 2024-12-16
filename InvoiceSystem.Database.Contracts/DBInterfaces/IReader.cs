@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InvoiceSystem.Database.Contracts.DBInterfaces
+﻿namespace InvoiceSystem.Database.Contracts.DBInterfaces
 {
     /// <summary>
     /// Читает из БД

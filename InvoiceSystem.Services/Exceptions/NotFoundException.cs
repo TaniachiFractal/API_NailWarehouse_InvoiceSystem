@@ -3,7 +3,7 @@
     /// <summary>
     /// Ошибка "Не найдено"
     /// </summary>
-    public class NotFoundException : DBObjectException
+    public class NotFoundException : InvcSysException
     {
         /// <summary>
         /// Конструктор по ID и названию типа

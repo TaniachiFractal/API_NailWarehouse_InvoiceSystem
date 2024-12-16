@@ -3,7 +3,7 @@
     /// <summary>
     /// Ошибка валидации
     /// </summary>
-    public class ValidationErrorException : DBObjectException
+    public class ValidationErrorException : InvcSysException
     {
         /// <summary>
         /// Список всех ошибок валидации

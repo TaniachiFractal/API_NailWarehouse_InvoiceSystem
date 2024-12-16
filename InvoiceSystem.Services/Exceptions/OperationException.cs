@@ -3,7 +3,7 @@
     /// <summary>
     /// Ошибка "Неправильное действие"
     /// </summary>
-    public class OperationException : DBObjectException
+    public class OperationException : InvcSysException
     {
         /// <summary>
         /// Конструктор

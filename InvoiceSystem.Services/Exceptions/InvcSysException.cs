@@ -1,14 +1,14 @@
 ﻿namespace InvoiceSystem.Services.Exceptions
 {
     /// <summary>
-    /// Ошибки моделей БД
+    /// Ошибки системы накладных
     /// </summary>
-    public abstract class DBObjectException : Exception
+    public abstract class InvcSysException : Exception
     {
         /// <summary>
         /// Конструктор ошибки
         /// </summary>
         /// <param name="message"></param>
-        public DBObjectException(string message) : base(message) { }
+        public InvcSysException(string message) : base(message) { }
     }
 }

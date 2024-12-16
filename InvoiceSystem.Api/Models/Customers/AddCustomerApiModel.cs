@@ -1,11 +1,11 @@
 ﻿using InvoiceSystem.Models.Interfaces;
 
-namespace InvoiceSystem.Models.Customers
+namespace InvoiceSystem.Api.Models.Customers
 {
     /// <summary>
-    /// Покупатель
+    /// Модель для добавления и изменения покупателя
     /// </summary>
-    public class Customer : DBObject, ICustomer
+    public class AddCustomerApiModel : ICustomer
     {
         /// <inheritdoc/>
         public string Name { get; set; }

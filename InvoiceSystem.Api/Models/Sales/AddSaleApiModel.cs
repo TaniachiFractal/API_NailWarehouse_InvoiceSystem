@@ -1,16 +1,16 @@
 ﻿using InvoiceSystem.Models.Interfaces;
 
-namespace InvoiceSystem.Models.Sales
+namespace InvoiceSystem.Api.Models.Sales
 {
     /// <summary>
-    /// Запись о продаже товара
+    /// Модель добавления и изменения данных о продаже
     /// </summary>
-    public class Sale : DBObject, ISale
+    public class AddSaleApiModel : ISale
     {
         /// <inheritdoc/> 
         public Guid ProductId { get; set; }
 
-        /// <inheritdoc/> 
+        /// <inheritdoc/>
         public Guid InvoiceId { get; set; }
 
         /// <inheritdoc/>

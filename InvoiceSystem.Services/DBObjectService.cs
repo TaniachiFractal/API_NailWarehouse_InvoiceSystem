@@ -3,6 +3,7 @@ using InvoiceSystem.Database.Contracts;
 using InvoiceSystem.Database.Contracts.DBInterfaces;
 using InvoiceSystem.Database.Contracts.ModelInterfaces;
 using InvoiceSystem.Database.Contracts.Repositories;
+using InvoiceSystem.Models;
 using InvoiceSystem.Services.Contracts;
 using InvoiceSystem.Services.Exceptions;
 

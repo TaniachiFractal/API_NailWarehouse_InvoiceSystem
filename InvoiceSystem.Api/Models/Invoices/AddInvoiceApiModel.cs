@@ -1,11 +1,11 @@
 ﻿using InvoiceSystem.Models.Interfaces;
 
-namespace InvoiceSystem.Models.Invoices
+namespace InvoiceSystem.Api.Models.Invoices
 {
     /// <summary>
-    /// Товарная накладная
+    /// Модель для добавления и изменения накладной
     /// </summary>
-    public class Invoice : DBObject, IInvoice
+    public class AddInvoiceApiModel : IInvoice
     {
         /// <inheritdoc/> 
         public Guid CustomerId { get; set; }

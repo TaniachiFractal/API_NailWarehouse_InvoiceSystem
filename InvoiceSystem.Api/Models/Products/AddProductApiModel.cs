@@ -1,11 +1,11 @@
 ﻿using InvoiceSystem.Models.Interfaces;
 
-namespace InvoiceSystem.Models.Products
+namespace InvoiceSystem.Api.Models.Products
 {
     /// <summary>
-    /// Товар на складе
+    /// Модель для добавления и изменения данных товара
     /// </summary>
-    public class Product : DBObject, IProduct
+    public class AddProductApiModel : IProduct
     {
         /// <inheritdoc/> 
         public string Name { get; set; }
@@ -13,4 +13,5 @@ namespace InvoiceSystem.Models.Products
         /// <inheritdoc/> 
         public decimal Price { get; set; }
     }
+
 }
