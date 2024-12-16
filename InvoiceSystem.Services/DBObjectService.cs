@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using InvoiceSystem.Database;
 using InvoiceSystem.Database.Contracts;
-using InvoiceSystem.Models;
+using InvoiceSystem.Database.Contracts.ModelInterfaces;
 using InvoiceSystem.Services.Contracts;
 using InvoiceSystem.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;

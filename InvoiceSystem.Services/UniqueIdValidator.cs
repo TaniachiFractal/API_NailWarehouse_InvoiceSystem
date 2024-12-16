@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using InvoiceSystem.Database.Contracts;
+using InvoiceSystem.Database.Contracts.ModelInterfaces;
 
 namespace InvoiceSystem.Services
 {

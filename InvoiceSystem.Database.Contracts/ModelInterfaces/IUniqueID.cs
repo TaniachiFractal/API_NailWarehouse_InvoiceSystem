@@ -1,4 +1,4 @@
-﻿namespace InvoiceSystem.Database.Contracts
+﻿namespace InvoiceSystem.Database.Contracts.ModelInterfaces
 {
     /// <summary>
     /// Объект с уникальным идентификатором типа <see cref="Guid"/>

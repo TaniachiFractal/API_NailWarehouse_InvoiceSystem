@@ -1,4 +1,4 @@
-﻿namespace InvoiceSystem.Database.Contracts
+﻿namespace InvoiceSystem.Database.Contracts.ModelInterfaces
 {
     /// <summary>
     /// Возможность мягкого удаления

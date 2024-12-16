@@ -1,4 +1,5 @@
-﻿using InvoiceSystem.Models.Configuration;
+﻿using InvoiceSystem.Database.Contracts.DBInterfaces;
+using InvoiceSystem.Models.Configuration;
 using InvoiceSystem.Models.Customers;
 using InvoiceSystem.Models.Invoices;
 using InvoiceSystem.Models.Products;
@@ -12,12 +13,12 @@ namespace InvoiceSystem.Database
     /// </summary>
     /// <remarks>
     /// https://learn.microsoft.com/ru-ru/ef/core/cli/dotnet
-    /// dotnet tool install --global dotnet-ef --version 6.0.0
-    /// dotnet tool update --global dotnet-ef --version 6.0.0
-    /// dotnet ef migrations add InitialCreate --project InvoiceSystem.Database/InvoiceSystem.Database.csproj
-    /// dotnet ef database update --project InvoiceSystem.Database/InvoiceSystem.Database.csproj
+    /// <para> dotnet tool install --global dotnet-ef --version 6.0.0 </para>
+    /// <para> dotnet tool update --global dotnet-ef --version 6.0.0 </para>
+    /// <para> dotnet ef migrations add InitialCreate --project InvoiceSystem.Database/InvoiceSystem.Database.csproj </para>
+    /// <para> dotnet ef database update --project InvoiceSystem.Database/InvoiceSystem.Database.csproj </para>
     /// </remarks>
-    public class InvcSysDBContext : DbContext
+    public class InvcSysDBContext : DbContext, IReader, IWriter, IUnitOfWork
     {
         /// <summary>
         /// Таблица <see cref="Customer"/>s
@@ -53,6 +54,30 @@ namespace InvoiceSystem.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IModelConfigAnchor).Assembly);
+        }
+
+        IQueryable<T> IReader.Read<T>()
+            => base.Set<T>()
+            .AsQueryable()
+            .AsNoTracking();
+
+        void IWriter.Add<T>(T entity)
+        => base.Entry(entity).State = EntityState.Added;
+
+        void IWriter.Delete<T>(T entity)
+        => base.Entry(entity).State = EntityState.Deleted;
+
+        void IWriter.Update<T>(T entity)
+        => base.Entry(entity).State = EntityState.Modified;
+
+        async Task<int> IUnitOfWork.CommitAsync(CancellationToken cancellationToken)
+        {
+            var count = await base.SaveChangesAsync(cancellationToken);
+            foreach (var entry in base.ChangeTracker.Entries().ToArray())
+            {
+                entry.State = EntityState.Detached;
+            }
+            return count;
         }
     }
 }

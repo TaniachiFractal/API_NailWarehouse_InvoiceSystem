@@ -1,6 +1,6 @@
-﻿using InvoiceSystem.Database.Contracts;
+﻿using InvoiceSystem.Database.Contracts.ModelInterfaces;
 
-namespace InvoiceSystem.Models
+namespace InvoiceSystem.Database.Contracts
 {
     /// <summary>
     /// Объект, из которого можно создать таблицу в БД
@@ -19,15 +19,5 @@ namespace InvoiceSystem.Models
         /// <inheritdoc/>
         public DateTimeOffset? DeletedDate { get; set; }
 
-        /// <summary>
-        /// Конструктор
-        /// </summary>
-        public DBObject()
-        {
-            Id = Guid.NewGuid();
-            CreatedDate = DateTimeOffset.Now;
-            UpdatedDate = DateTimeOffset.Now;
-            DeletedDate = null;
-        }
     }
 }

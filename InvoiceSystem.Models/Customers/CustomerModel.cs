@@ -1,4 +1,4 @@
-﻿using InvoiceSystem.Database.Contracts;
+﻿using InvoiceSystem.Database.Contracts.ModelInterfaces;
 
 namespace InvoiceSystem.Models.Customers
 {
