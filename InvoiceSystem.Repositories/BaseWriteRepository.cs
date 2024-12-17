@@ -37,9 +37,6 @@ namespace InvoiceSystem.Repositories
         /// <inheritdoc/>
         public void Delete([NotNull] T entity)
         {
-            foreach (var fieldInfo in entity.GetType().GetFields())
-            { fieldInfo.SetValue(entity, null); }
-
             AuditForUpdate(entity);
 
             if (entity is ISoftDeleted)

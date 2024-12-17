@@ -58,7 +58,7 @@ namespace InvoiceSystem.Api
         }
 
         /// <summary>
-        /// Добавить <typeparamref name="TObject" />
+        /// Добавить 
         /// </summary>
         [HttpPost]
         [ProducesValidationError()]
@@ -72,7 +72,7 @@ namespace InvoiceSystem.Api
         }
 
         /// <summary>
-        /// Редактировать <typeparamref name="TObject" />
+        /// Редактировать 
         /// </summary>
         [HttpPut("{id:guid}")]
         [ProducesValidationError()]
@@ -89,7 +89,7 @@ namespace InvoiceSystem.Api
         }
 
         /// <summary>
-        /// Удалить <typeparamref name="TObject" />
+        /// Удалить 
         /// </summary>
         [HttpDelete("{id:guid}")]
         [ProducesNotFound()]

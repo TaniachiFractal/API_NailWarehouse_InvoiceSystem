@@ -7,6 +7,7 @@ namespace InvoiceSystem.Api.Models.Products
     /// </summary>
     public class ProductApiModel : AddProductApiModel, IUniqueID
     {
-        Guid IUniqueID.Id { get; set; }
+        /// <inheritdoc/> 
+        public Guid Id { get; set; }
     }
 }

@@ -1,9 +1,7 @@
-﻿using InvoiceSystem.Api.Models;
+﻿using AutoMapper;
+using InvoiceSystem.Api.Models;
 using InvoiceSystem.Api.ResponseAttributes;
-using InvoiceSystem.Services.Contracts.Models.Customers;
-using InvoiceSystem.Services.Contracts.Models.Invoices;
-using InvoiceSystem.Services.Contracts.Models.Products;
-using InvoiceSystem.Services.Contracts.Models.Sales;
+using InvoiceSystem.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvoiceSystem.Api.Controllers
@@ -15,20 +13,16 @@ namespace InvoiceSystem.Api.Controllers
     [Route("api/[controller]")]
     public class MainController : ControllerBase
     {
-        private ICustomerService customerService;
-        private IInvoiceService invoiceService;
-        private IProductService productService;
-        private ISaleService saleService;
+        private readonly IMainService mainService;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// Конструктор
         /// </summary>
-        public MainController(ICustomerService customerService, IInvoiceService invoiceService, IProductService productService, ISaleService saleService)
+        public MainController(IMainService mainService, IMapper mapper)
         {
-            this.customerService = customerService;
-            this.invoiceService = invoiceService;
-            this.productService = productService;
-            this.saleService = saleService;
+            this.mainService = mainService;
+            this.mapper = mapper;
         }
 
         /// <summary>
@@ -36,13 +30,11 @@ namespace InvoiceSystem.Api.Controllers
         /// </summary>
         [HttpGet("{id:guid}")]
         [ProducesNotFound()]
-        [ProducesType(typeof(FullInvoiceInfoModel))]
+        [ProducesType(typeof(FullInvoiceInfoApiModel))]
         public virtual async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
-            var invoice = await invoiceService.GetById(id, cancellationToken);
-            var 
-            var item = await service.GetById(id, cancellationToken);
-            var result = mapper.Map<TApiModel>(item);
+            var item = await mainService.GetFullInvoiceInfo(id, cancellationToken);
+            var result = mapper.Map<FullInvoiceInfoApiModel>(item);
             return Ok(result);
         }
     }

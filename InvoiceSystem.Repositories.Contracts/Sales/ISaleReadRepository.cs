@@ -8,5 +8,10 @@ namespace InvoiceSystem.Repositories.Contracts.Sales
     /// </summary>
     public interface ISaleReadRepository : IReadRepository<Sale>
     {
+        /// <summary>
+        /// Получить список продаж по ID накладной
+        /// </summary>
+        Task<IEnumerable<Sale>> GetAllWithInvoiceId(Guid id, CancellationToken cancellationToken);
+
     }
 }

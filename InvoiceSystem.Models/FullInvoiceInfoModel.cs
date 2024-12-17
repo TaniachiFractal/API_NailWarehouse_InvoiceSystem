@@ -1,18 +1,14 @@
-﻿namespace InvoiceSystem.Api.Models
+﻿using InvoiceSystem.Models.Interfaces;
+
+namespace InvoiceSystem.Models
 {
-    /// <summary>
-    /// Модель всех данных накладной вместе
-    /// </summary>
-    public class FullInvoiceInfoModel
+    /// <inheritdoc cref="IFullInvoiceInfoModel{ProductInvoiceListingModel}"/>
+    public class FullInvoiceInfoModel : IFullInvoiceInfoModel<ProductInvoiceListingModel>
     {
-        /// <summary>
-        /// Номер
-        /// </summary>
+        /// <inheritdoc/>
         public int Number { get; set; }
 
-        /// <summary>
-        /// Дата исполнения
-        /// </summary>
+        /// <inheritdoc/>
         public DateTime ExecDate { get; set; }
 
         /// <summary>
@@ -33,7 +29,7 @@
         /// <summary>
         /// Список записей о товарах
         /// </summary>
-        public IEnumerable<ProductInvoiceListing> Products { get; set; }
+        public IEnumerable<ProductInvoiceListingModel> Products { get; set; }
 
         /// <summary>
         /// Налог

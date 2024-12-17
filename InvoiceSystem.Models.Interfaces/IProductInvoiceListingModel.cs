@@ -1,9 +1,9 @@
-﻿namespace InvoiceSystem.Api.Models
+﻿namespace InvoiceSystem.Models.Interfaces
 {
     /// <summary>
     /// Модель записи о товаре в накладной
     /// </summary>
-    public class ProductInvoiceListing
+    public interface IProductInvoiceListingModel
     {
         /// <summary>
         /// Название
@@ -13,16 +13,16 @@
         /// <summary>
         /// Количество
         /// </summary>
-        public string Count { get; set; }
+        public int Count { get; set; }
 
         /// <summary>
         /// Цена
         /// </summary>
-        public string Price { get; set; }
+        public decimal Price { get; set; }
 
         /// <summary>
         /// Сумма
         /// </summary>
-        public string Summary { get; set; }
+        public decimal Summary { get; set; }
     }
 }

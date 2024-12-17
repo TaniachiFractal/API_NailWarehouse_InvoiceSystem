@@ -7,6 +7,7 @@ namespace InvoiceSystem.Models.Products
     /// </summary>
     public class ProductModel : AddProductModel, IUniqueID
     {
-        Guid IUniqueID.Id { get; set; }
+        /// <inheritdoc/> 
+        public Guid Id { get; set; }
     }
 }
