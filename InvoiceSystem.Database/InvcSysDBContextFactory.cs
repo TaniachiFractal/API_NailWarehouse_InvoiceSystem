@@ -8,12 +8,11 @@ namespace InvoiceSystem.Database
     /// </summary>
     public class InvcSysDBContextFactory : IDesignTimeDbContextFactory<InvcSysDBContext>
     {
-        private const string DBname = "MaslovaInvoiceSystem";
 
         InvcSysDBContext IDesignTimeDbContextFactory<InvcSysDBContext>.CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<InvcSysDBContext>();
-            optionsBuilder.UseSqlServer($@"Server=(localdb)\mssqllocaldb;Database={DBname};Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer($@"Server=(localdb)\mssqllocaldb;Database=MaslovaInvoiceSystem;Trusted_Connection=True;");
             return new InvcSysDBContext(optionsBuilder.Options);
         }
     }

@@ -14,14 +14,17 @@ namespace InvoiceSystem.Services.Models.Sales
         public AddSaleModelValidator()
         {
             RuleFor(x => x.ProductId)
+                .NotNull()
                 .NotEmpty()
                 ;
 
             RuleFor(x => x.InvoiceId)
+                .NotNull()
                 .NotEmpty()
                 ;
 
             RuleFor(x => x.SoldCount)
+                .NotNull()
                 .NotEmpty()
                 .LessThan(int.MaxValue)
                 .GreaterThan(0)

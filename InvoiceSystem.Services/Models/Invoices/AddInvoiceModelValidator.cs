@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
-using InvoiceSystem.Models.Customers;
-using InvoiceSystem.Models.Configuration;
+using InvoiceSystem.Database.Contracts.Repositories;
 using InvoiceSystem.Models.Invoices;
 
 namespace InvoiceSystem.Services.Models.Invoices
@@ -16,10 +15,12 @@ namespace InvoiceSystem.Services.Models.Invoices
         public AddInvoiceModelValidator()
         {
             RuleFor(x => x.CustomerId)
+                .NotNull()
                 .NotEmpty()
                 ;
 
             RuleFor(x => x.ExecutionDate)
+                .NotNull()
                 .NotEmpty()
                 ;
         }

@@ -1,38 +1,38 @@
 ﻿using AutoMapper;
-using InvoiceSystem.Api.Models.Customers;
+using InvoiceSystem.Api.Models.Invoices;
 using InvoiceSystem.Api.ResponseAttributes;
-using InvoiceSystem.Models.Customers;
-using InvoiceSystem.Services.Contracts.Models.Customers;
+using InvoiceSystem.Models.Invoices;
+using InvoiceSystem.Services.Contracts.Models.Invoices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvoiceSystem.Api.Controllers
 {
     /// <summary>
-    /// Контроллер покупателей
+    /// Контроллер накладных
     /// </summary>
-    public class CustomerController : DBObjectController<AddCustomerApiModel, CustomerApiModel, AddCustomerModel, CustomerModel, Customer>
+    public class InvoiceController : DBObjectController<AddInvoiceApiModel, InvoiceApiModel, AddInvoiceModel, InvoiceModel, Invoice>
     {
         /// <summary>
-        /// Конструктор
+        /// Конструтор
         /// </summary>
-        public CustomerController(IMapper mapper, ICustomerService service, ICustomerValidationService validationService)
+        public InvoiceController(IMapper mapper, IInvoiceService service, IInvoiceValidationService validationService)
             : base(mapper, service, validationService)
         {
         }
 
         /// <summary>
-        /// Получить покупателя по ID
+        /// Получить накладную по ID
         /// </summary>
-        [ProducesType(typeof(CustomerApiModel))]
+        [ProducesType(typeof(InvoiceApiModel))]
         public override async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
             return await base.GetById(id, cancellationToken);
         }
 
         /// <summary>
-        /// Получить всех покупателей
+        /// Получить все накладные
         /// </summary>
-        [ProducesType(typeof(IReadOnlyCollection<CustomerApiModel>))]
+        [ProducesType(typeof(IReadOnlyCollection<InvoiceApiModel>))]
         public override async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             return await base.GetAll(cancellationToken);

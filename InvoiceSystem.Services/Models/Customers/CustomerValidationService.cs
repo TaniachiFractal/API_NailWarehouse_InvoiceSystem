@@ -1,4 +1,5 @@
-﻿using InvoiceSystem.Models.Customers;
+﻿using InvoiceSystem.Database.Contracts.Repositories;
+using InvoiceSystem.Models.Customers;
 using InvoiceSystem.Services.Contracts.Models.Customers;
 
 namespace InvoiceSystem.Services.Models.Customers

@@ -27,7 +27,7 @@ namespace InvoiceSystem.Api.Infrastructure
                         SetHandledException(context, new ObjectResult(new ValidationErrorModel
                         {
                             Errors = supEx.Errors.Select(x =>
-                            new KeyValuePair<string, string>(x.Field, x.Message))
+                            new OneValidationError(x.Field, x.Message))
                         })
                         {
                             StatusCode = StatusCodes.Status406NotAcceptable

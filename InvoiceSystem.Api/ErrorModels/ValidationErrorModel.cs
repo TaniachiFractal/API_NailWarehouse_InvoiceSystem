@@ -13,6 +13,6 @@
         /// <summary>
         /// Список ошибок
         /// </summary>
-        public IEnumerable<KeyValuePair<string, string>> Errors { get; set; }
+        public IEnumerable<OneValidationError> Errors { get; set; }
     }
 }

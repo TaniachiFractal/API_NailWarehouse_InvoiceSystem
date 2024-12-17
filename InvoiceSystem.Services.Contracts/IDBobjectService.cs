@@ -17,22 +17,22 @@ namespace InvoiceSystem.Services.Contracts
         Task<IReadOnlyCollection<TObjectModel>> GetAll(CancellationToken cancellationToken);
 
         /// <summary>
-        /// Получить <see cref="DBObject"/> по ID
+        /// Получить <typeparamref name="TObject" /> по ID
         /// </summary>
         Task<TObjectModel> GetById(Guid id, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Добавить <see cref="DBObject"/>
+        /// Добавить <typeparamref name="TObject" />
         /// </summary>
         Task<Guid> Add(TAddObjectModel model, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Редактировать <see cref="DBObject"/>
+        /// Редактировать <typeparamref name="TObject" />
         /// </summary>
         Task Edit(TObjectModel model, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Удалить <see cref="DBObject"/>
+        /// Удалить <typeparamref name="TObject" />
         /// </summary>
         Task Delete(Guid id, CancellationToken cancellationToken);
     }

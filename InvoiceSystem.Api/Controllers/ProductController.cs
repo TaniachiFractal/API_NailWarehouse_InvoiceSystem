@@ -1,38 +1,38 @@
 ﻿using AutoMapper;
-using InvoiceSystem.Api.Models.Customers;
+using InvoiceSystem.Api.Models.Products;
 using InvoiceSystem.Api.ResponseAttributes;
-using InvoiceSystem.Models.Customers;
-using InvoiceSystem.Services.Contracts.Models.Customers;
+using InvoiceSystem.Models.Products;
+using InvoiceSystem.Services.Contracts.Models.Products;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvoiceSystem.Api.Controllers
 {
     /// <summary>
-    /// Контроллер покупателей
+    /// Контроллер товаров
     /// </summary>
-    public class CustomerController : DBObjectController<AddCustomerApiModel, CustomerApiModel, AddCustomerModel, CustomerModel, Customer>
+    public class ProductController : DBObjectController<AddProductApiModel, ProductApiModel, AddProductModel, ProductModel, Product>
     {
         /// <summary>
-        /// Конструктор
+        /// Конструтор
         /// </summary>
-        public CustomerController(IMapper mapper, ICustomerService service, ICustomerValidationService validationService)
+        public ProductController(IMapper mapper, IProductService service, IProductValidationService validationService)
             : base(mapper, service, validationService)
         {
         }
 
         /// <summary>
-        /// Получить покупателя по ID
+        /// Получить товар по ID
         /// </summary>
-        [ProducesType(typeof(CustomerApiModel))]
+        [ProducesType(typeof(ProductApiModel))]
         public override async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
             return await base.GetById(id, cancellationToken);
         }
 
         /// <summary>
-        /// Получить всех покупателей
+        /// Получить все товары
         /// </summary>
-        [ProducesType(typeof(IReadOnlyCollection<CustomerApiModel>))]
+        [ProducesType(typeof(IReadOnlyCollection<ProductApiModel>))]
         public override async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             return await base.GetAll(cancellationToken);

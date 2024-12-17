@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
-using InvoiceSystem.Api.ErrorModels;
 using InvoiceSystem.Api.ResponseAttributes;
 using InvoiceSystem.Database.Contracts.ModelInterfaces;
 using InvoiceSystem.Models;
 using InvoiceSystem.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
-namespace InvoiceSystem.Api.Controllers
+namespace InvoiceSystem.Api
 {
     /// <summary>
     /// Контроллер со стандартными методами
     /// </summary>
+    [ApiController]
+    [Route("api/[controller]")]
     public abstract class DBObjectController<TAddApiModel, TApiModel, TAddObjectModel, TObjectModel, TObject> : ControllerBase
         where TApiModel : TAddApiModel, IUniqueID
         where TObject : DBObject
@@ -38,8 +39,7 @@ namespace InvoiceSystem.Api.Controllers
         /// </summary>
         [HttpGet("{id:guid}")]
         [ProducesNotFound()]
-        [ProducesResponseType(typeof(TApiModel), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
+        public virtual async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
         {
             var item = await service.GetById(id, cancellationToken);
             var result = mapper.Map<TApiModel>(item);
@@ -50,8 +50,7 @@ namespace InvoiceSystem.Api.Controllers
         /// Получить список
         /// </summary>
         [HttpGet]
-        [ProducesResponseType(typeof(IReadOnlyCollection<TApiModel>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+        public virtual async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var items = await service.GetAll(cancellationToken);
             var result = mapper.Map<IReadOnlyCollection<TApiModel>>(items);
@@ -59,7 +58,7 @@ namespace InvoiceSystem.Api.Controllers
         }
 
         /// <summary>
-        /// Добавить
+        /// Добавить <typeparamref name="TObject" />
         /// </summary>
         [HttpPost]
         [ProducesValidationError()]
@@ -73,7 +72,7 @@ namespace InvoiceSystem.Api.Controllers
         }
 
         /// <summary>
-        /// Редактировать
+        /// Редактировать <typeparamref name="TObject" />
         /// </summary>
         [HttpPut("{id:guid}")]
         [ProducesValidationError()]
@@ -90,7 +89,7 @@ namespace InvoiceSystem.Api.Controllers
         }
 
         /// <summary>
-        /// Удалить
+        /// Удалить <typeparamref name="TObject" />
         /// </summary>
         [HttpDelete("{id:guid}")]
         [ProducesNotFound()]

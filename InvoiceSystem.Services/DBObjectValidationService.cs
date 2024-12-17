@@ -1,7 +1,10 @@
 ﻿using FluentValidation;
 using InvoiceSystem.Database.Contracts.ModelInterfaces;
+using InvoiceSystem.Database.Contracts.Repositories;
+using InvoiceSystem.Models;
 using InvoiceSystem.Services.Contracts;
 using InvoiceSystem.Services.Exceptions;
+using InvoiceSystem.Services.Models;
 
 namespace InvoiceSystem.Services
 {
