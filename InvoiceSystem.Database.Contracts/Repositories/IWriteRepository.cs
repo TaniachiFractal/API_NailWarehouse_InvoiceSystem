@@ -7,6 +7,7 @@ namespace InvoiceSystem.Database.Contracts.Repositories
     /// </summary>
     public interface IWriteRepository<in TEntity> where TEntity : class
     {
+
         /// <summary>
         /// Добавить
         /// </summary>
@@ -21,5 +22,6 @@ namespace InvoiceSystem.Database.Contracts.Repositories
         /// Обновить
         /// </summary>
         void Update([NotNull] TEntity entity);
+
     }
 }

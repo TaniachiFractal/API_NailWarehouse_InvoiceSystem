@@ -1,4 +1,4 @@
-﻿namespace InvoiceSystem.Services.Exceptions
+﻿namespace InvoiceSystem.Exceptions
 {
     /// <summary>
     /// Ошибка "Неправильное действие"

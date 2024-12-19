@@ -11,34 +11,22 @@ namespace InvoiceSystem.Models
         /// <inheritdoc/>
         public DateTime ExecDate { get; set; }
 
-        /// <summary>
-        /// Имя покупателя
-        /// </summary>
+        /// <inheritdoc/>
         public string CustomerName { get; set; }
 
-        /// <summary>
-        /// ИНН покупателя
-        /// </summary>
+        /// <inheritdoc/>
         public string CustomerINN { get; set; }
 
-        /// <summary>
-        /// Адрес покупателя
-        /// </summary>
+        /// <inheritdoc/>
         public string CustomerAddress { get; set; }
 
-        /// <summary>
-        /// Список записей о товарах
-        /// </summary>
+        /// <inheritdoc/>
         public IEnumerable<ProductInvoiceListingModel> Products { get; set; }
 
-        /// <summary>
-        /// Налог
-        /// </summary>
+        /// <inheritdoc/>
         public decimal Tax { get; set; }
 
-        /// <summary>
-        /// Итого
-        /// </summary>
+        /// <inheritdoc/>
         public decimal FullSummary { get; set; }
     }
 }

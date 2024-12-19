@@ -8,7 +8,6 @@ namespace InvoiceSystem.Database
     /// </summary>
     public class InvcSysDBContextFactory : IDesignTimeDbContextFactory<InvcSysDBContext>
     {
-
         InvcSysDBContext IDesignTimeDbContextFactory<InvcSysDBContext>.CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<InvcSysDBContext>();

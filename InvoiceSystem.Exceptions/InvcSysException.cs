@@ -1,4 +1,4 @@
-﻿namespace InvoiceSystem.Services.Exceptions
+﻿namespace InvoiceSystem.Exceptions
 {
     /// <summary>
     /// Ошибки системы накладных
@@ -6,9 +6,9 @@
     public abstract class InvcSysException : Exception
     {
         /// <summary>
-        /// Конструктор ошибки
+        /// Конструктор
         /// </summary>
-        /// <param name="message"></param>
-        public InvcSysException(string message) : base(message) { }
+        public InvcSysException(string message) : base(message)
+        { }
     }
 }

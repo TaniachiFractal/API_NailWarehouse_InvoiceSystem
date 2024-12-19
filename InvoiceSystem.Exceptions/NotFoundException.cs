@@ -1,4 +1,4 @@
-﻿namespace InvoiceSystem.Services.Exceptions
+﻿namespace InvoiceSystem.Exceptions
 {
     /// <summary>
     /// Ошибка "Не найдено"
@@ -8,8 +8,8 @@
         /// <summary>
         /// Конструктор по ID и названию типа
         /// </summary>
-        public NotFoundException(Guid id, string typeName)
-            : base($"Ошибка: объект {typeName} с ID {id} не найден.")
+        public NotFoundException(Guid id, Type type)
+            : base($"Ошибка: объект типа {type.Name} с ID {id} не найден.")
         { }
 
         /// <summary>

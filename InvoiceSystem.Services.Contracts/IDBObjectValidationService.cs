@@ -8,7 +8,7 @@
         /// <summary>
         /// Валидировать модель 
         /// </summary>
-        void Validate<TModel>(TModel model);
+        Task Validate<TModel>(TModel model, CancellationToken cancellationToken);
 
     }
 }

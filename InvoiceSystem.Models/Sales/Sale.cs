@@ -15,5 +15,6 @@ namespace InvoiceSystem.Models.Sales
 
         /// <inheritdoc/>
         public int SoldCount { get; set; }
+
     }
 }

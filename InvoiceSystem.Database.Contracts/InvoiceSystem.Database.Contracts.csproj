@@ -6,8 +6,4 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\InvoiceSystem.Common\InvoiceSystem.Common.csproj" />
-  </ItemGroup>
-
 </Project>

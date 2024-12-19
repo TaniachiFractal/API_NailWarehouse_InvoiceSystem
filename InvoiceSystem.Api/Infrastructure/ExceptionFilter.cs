@@ -1,5 +1,5 @@
 ﻿using InvoiceSystem.Api.ErrorModels;
-using InvoiceSystem.Services.Exceptions;
+using InvoiceSystem.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -23,10 +23,10 @@ namespace InvoiceSystem.Api.Infrastructure
                             ErrorCode = StatusCodes.Status404NotFound
                         }));
                         break;
-                    case ValidationErrorException supEx:
+                    case ValidationErrorException validEx:
                         SetHandledException(context, new ObjectResult(new ValidationErrorModel
                         {
-                            Errors = supEx.Errors.Select(x =>
+                            Errors = validEx.Errors.Select(x =>
                             new OneValidationError(x.Field, x.Message))
                         })
                         {

@@ -5,6 +5,7 @@
     /// </summary>
     public interface IReadRepository<T> where T : class
     {
+
 #nullable enable
         /// <summary>
         /// Получить по ID
@@ -16,5 +17,6 @@
         /// </summary>
         Task<IReadOnlyCollection<T>> GetAll(CancellationToken cancellationToken);
 #nullable disable
+
     }
 }

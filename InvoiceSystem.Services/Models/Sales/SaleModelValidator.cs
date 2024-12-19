@@ -1,4 +1,6 @@
 ﻿using InvoiceSystem.Models.Sales;
+using InvoiceSystem.Repositories.Contracts.Invoices;
+using InvoiceSystem.Repositories.Contracts.Products;
 
 namespace InvoiceSystem.Services.Models.Sales
 {
@@ -10,7 +12,8 @@ namespace InvoiceSystem.Services.Models.Sales
         /// <summary>
         /// Конструктор
         /// </summary>
-        public SaleModelValidator() : base(new AddSaleModelValidator())
+        public SaleModelValidator(IProductReadRepository productReadRepository, IInvoiceReadRepository invoiceReadRepository)
+            : base(new AddSaleModelValidator(productReadRepository, invoiceReadRepository))
         {
         }
     }

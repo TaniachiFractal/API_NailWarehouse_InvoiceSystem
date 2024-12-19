@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InvoiceSystem.Api.ResponseAttributes;
+using InvoiceSystem.Database.Contracts.DBInterfaces;
 using InvoiceSystem.Database.Contracts.ModelInterfaces;
 using InvoiceSystem.Models;
 using InvoiceSystem.Services.Contracts;
@@ -66,7 +67,7 @@ namespace InvoiceSystem.Api
         public async Task<IActionResult> Add(TAddApiModel request, CancellationToken cancellationToken)
         {
             var model = mapper.Map<TAddObjectModel>(request);
-            validationService.Validate(model);
+            await validationService.Validate(model, cancellationToken);
             await service.Add(model, cancellationToken);
             return NoContent();
         }
@@ -82,7 +83,7 @@ namespace InvoiceSystem.Api
             ([FromRoute] Guid id, [FromBody] TAddApiModel request, CancellationToken cancellationToken)
         {
             var model = mapper.Map<TObjectModel>(request);
-            validationService.Validate(model);
+            await validationService.Validate(model, cancellationToken);
             model.Id = id;
             await service.Edit(model, cancellationToken);
             return NoContent();

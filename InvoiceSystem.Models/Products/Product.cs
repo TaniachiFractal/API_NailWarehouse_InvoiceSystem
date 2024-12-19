@@ -12,5 +12,6 @@ namespace InvoiceSystem.Models.Products
 
         /// <inheritdoc/> 
         public decimal Price { get; set; }
+
     }
 }

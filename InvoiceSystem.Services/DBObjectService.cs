@@ -2,9 +2,9 @@
 using InvoiceSystem.Database.Contracts.DBInterfaces;
 using InvoiceSystem.Database.Contracts.ModelInterfaces;
 using InvoiceSystem.Database.Contracts.Repositories;
+using InvoiceSystem.Exceptions;
 using InvoiceSystem.Models;
 using InvoiceSystem.Services.Contracts;
-using InvoiceSystem.Services.Exceptions;
 
 namespace InvoiceSystem.Services
 {
@@ -48,7 +48,7 @@ namespace InvoiceSystem.Services
         /// <inheritdoc/>
         public async Task Delete(Guid id, CancellationToken cancellationToken)
         {
-            var item = await readRepository.GetById(id, cancellationToken) ?? throw new NotFoundException(id, nameof(TObject));
+            var item = await readRepository.GetById(id, cancellationToken) ?? throw new NotFoundException(id, typeof(TObject));
             writeRepository.Delete(item);
             await unitOfWork.SaveChangesAsync(cancellationToken);
         }
@@ -56,7 +56,7 @@ namespace InvoiceSystem.Services
         /// <inheritdoc/>
         public async Task Edit(TObjectModel model, CancellationToken cancellationToken)
         {
-            var _ = await readRepository.GetById(model.Id, cancellationToken) ?? throw new NotFoundException(model.Id, nameof(TObject));
+            var _ = await readRepository.GetById(model.Id, cancellationToken) ?? throw new NotFoundException(model.Id, typeof(TObject));
             var result = mapper.Map<TObject>(model);
             writeRepository.Update(result);
             await unitOfWork.SaveChangesAsync(cancellationToken);
@@ -76,7 +76,7 @@ namespace InvoiceSystem.Services
         {
             var item = await readRepository.GetById(id, cancellationToken);
             var result = mapper.Map<TObjectModel>(item);
-            return item == null ? throw new NotFoundException(id, nameof(TObject)) : result;
+            return item == null ? throw new NotFoundException(id, typeof(TObject)) : result;
         }
     }
 }

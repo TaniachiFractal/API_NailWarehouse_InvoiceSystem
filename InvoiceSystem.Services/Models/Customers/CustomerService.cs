@@ -16,7 +16,6 @@ namespace InvoiceSystem.Services.Models.Customers
         /// </summary>
         public CustomerService(IMapper mapper, ICustomerReadRepository readRepository, ICustomerWriteRepository writeRepository, IUnitOfWork unitOfWork)
             : base(mapper, readRepository, writeRepository, unitOfWork)
-        {
-        }
+        { }
     }
 }

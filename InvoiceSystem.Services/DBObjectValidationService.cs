@@ -1,40 +1,34 @@
 ﻿using FluentValidation;
 using InvoiceSystem.Database.Contracts.ModelInterfaces;
-using InvoiceSystem.Database.Contracts.Repositories;
-using InvoiceSystem.Models;
+using InvoiceSystem.Exceptions;
 using InvoiceSystem.Services.Contracts;
-using InvoiceSystem.Services.Exceptions;
-using InvoiceSystem.Services.Models;
 
 namespace InvoiceSystem.Services
 {
     /// <summary>
     /// Стандартный сервис валидации
     /// </summary>
-    public abstract class DBObjectValidationService
-        <TObjectModel, TAddObjectModel, TObjectModelValidator, TAddObjectModelValidator> : IDBObjectValidationService
-        where TObjectModel : IUniqueID, TAddObjectModel
-        where TObjectModelValidator : AbstractValidator<TObjectModel>, new()
-        where TAddObjectModelValidator : AbstractValidator<TAddObjectModel>, new()
+    public abstract class DBObjectValidationService : IDBObjectValidationService
     {
-        private readonly Dictionary<Type, IValidator> validators = new();
+        /// <summary>
+        /// Список валидаторов
+        /// </summary>
+        readonly protected Dictionary<Type, IValidator> validators = new();
 
         /// <summary>
         /// Конструтор
         /// </summary>
         public DBObjectValidationService()
         {
-            validators.Add(typeof(TObjectModel), new TObjectModelValidator());
-            validators.Add(typeof(TAddObjectModel), new TAddObjectModelValidator());
         }
 
-        void IDBObjectValidationService.Validate<TModel>(TModel model)
+        async Task IDBObjectValidationService.Validate<TModel>(TModel model, CancellationToken cancellationToken)
         {
             var modelType = typeof(TModel);
             if (validators.TryGetValue(modelType, out var validator))
             {
                 var context = new ValidationContext<TModel>(model);
-                var result = validator.Validate(context);
+                var result = await validator.ValidateAsync(context, cancellationToken);
                 if (!result.IsValid)
                 {
                     throw new ValidationErrorException(result.Errors.Select(x => (x.PropertyName, x.ErrorMessage)));

@@ -1,4 +1,5 @@
 ﻿using InvoiceSystem.Models.Products;
+using InvoiceSystem.Repositories.Contracts.Products;
 
 namespace InvoiceSystem.Services.Models.Products
 {
@@ -10,7 +11,7 @@ namespace InvoiceSystem.Services.Models.Products
         /// <summary>
         /// Конструктор
         /// </summary>
-        public ProductModelValidator() : base(new AddProductModelValidator())
+        public ProductModelValidator(IProductReadRepository readRepository) : base(new AddProductModelValidator(readRepository))
         {
         }
     }

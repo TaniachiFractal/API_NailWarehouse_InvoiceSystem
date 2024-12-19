@@ -11,11 +11,11 @@ using InvoiceSystem.Repositories.Customers;
 using InvoiceSystem.Repositories.Invoices;
 using InvoiceSystem.Repositories.Products;
 using InvoiceSystem.Repositories.Sales;
+using InvoiceSystem.Services;
 using InvoiceSystem.Services.Contracts.Models.Customers;
 using InvoiceSystem.Services.Contracts.Models.Invoices;
 using InvoiceSystem.Services.Contracts.Models.Products;
 using InvoiceSystem.Services.Contracts.Models.Sales;
-using InvoiceSystem.Services.Infrastructure;
 using InvoiceSystem.Services.Models.Customers;
 using InvoiceSystem.Services.Models.Invoices;
 using InvoiceSystem.Services.Models.Products;
@@ -75,10 +75,10 @@ namespace InvoiceSystem.Api
 
             #region Validation Services
 
-            builder.Services.AddSingleton<ICustomerValidationService, CustomerValidationService>();
-            builder.Services.AddSingleton<IInvoiceValidationService, InvoiceValidationService>();
-            builder.Services.AddSingleton<IProductValidationService, ProductValidationService>();
-            builder.Services.AddSingleton<ISaleValidationService, SaleValidationService>();
+            builder.Services.AddScoped<ICustomerValidationService, CustomerValidationService>();
+            builder.Services.AddScoped<IInvoiceValidationService, InvoiceValidationService>();
+            builder.Services.AddScoped<IProductValidationService, ProductValidationService>();
+            builder.Services.AddScoped<ISaleValidationService, SaleValidationService>();
 
             #endregion
 

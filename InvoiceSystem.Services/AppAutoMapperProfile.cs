@@ -4,7 +4,7 @@ using InvoiceSystem.Models.Invoices;
 using InvoiceSystem.Models.Products;
 using InvoiceSystem.Models.Sales;
 
-namespace InvoiceSystem.Services.Infrastructure
+namespace InvoiceSystem.Services
 {
     /// <summary>
     /// Профиль автомаппера для всех таблиц
