@@ -26,7 +26,7 @@ namespace InvoiceSystem.Services.Models.Sales
                 .NotEmpty()
 
                 .MustAsync(async (x, cancellation) => await ProductExists(x, cancellation))
-                .WithMessage(x => $"Товара с ID {x} не существует.")
+                .WithMessage(x => $"Товара с ID {x.ProductId} не существует.")
                 ;
 
             RuleFor(x => x.InvoiceId)
@@ -34,7 +34,7 @@ namespace InvoiceSystem.Services.Models.Sales
                 .NotEmpty()
 
                 .MustAsync(async (x, cancellation) => await InvoiceExists(x, cancellation))
-                .WithMessage(x => $"Накладной с ID {x} не существует.")
+                .WithMessage(x => $"Накладной с ID {x.ProductId} не существует.")
                 ;
             ;
 

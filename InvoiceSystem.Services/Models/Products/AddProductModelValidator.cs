@@ -25,7 +25,7 @@ namespace InvoiceSystem.Services.Models.Products
                 .Length(Cnst.MinLen, Cnst.MaxNameLen)
 
                 .MustAsync(async (x, cancellation) => await NameIsUniqueAsync(x, cancellation))
-                .WithMessage(x => $"Товар с названием {x} уже существует.")
+                .WithMessage(x => $"Товар с названием {x.Name} уже существует.")
                 ;
 
             RuleFor(x => x.Price)

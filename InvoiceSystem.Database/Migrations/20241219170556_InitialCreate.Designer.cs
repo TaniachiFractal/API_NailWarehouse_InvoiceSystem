@@ -11,12 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InvoiceSystem.Database.Migrations
 {
-    /// <inheritdoc/>
     [DbContext(typeof(InvcSysDBContext))]
-    [Migration("20241209135521_InitialCreate")]
+    [Migration("20241219170556_InitialCreate")]
     partial class InitialCreate
     {
-        /// <inheritdoc/>
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
@@ -87,8 +85,8 @@ namespace InvoiceSystem.Database.Migrations
                     b.Property<DateTimeOffset?>("DeletedDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<DateTimeOffset>("ExecutionDate")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("ExecutionDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
                         .HasColumnType("datetimeoffset");

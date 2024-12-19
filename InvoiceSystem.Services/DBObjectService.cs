@@ -56,8 +56,10 @@ namespace InvoiceSystem.Services
         /// <inheritdoc/>
         public async Task Edit(TObjectModel model, CancellationToken cancellationToken)
         {
-            var _ = await readRepository.GetById(model.Id, cancellationToken) ?? throw new NotFoundException(model.Id, typeof(TObject));
+            var item = await readRepository.GetById(model.Id, cancellationToken) ?? throw new NotFoundException(model.Id, typeof(TObject));
             var result = mapper.Map<TObject>(model);
+            result.Id = item.Id;
+            result.CreatedDate = item.CreatedDate;
             writeRepository.Update(result);
             await unitOfWork.SaveChangesAsync(cancellationToken);
 

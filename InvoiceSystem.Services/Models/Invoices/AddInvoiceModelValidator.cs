@@ -23,7 +23,7 @@ namespace InvoiceSystem.Services.Models.Invoices
                 .NotEmpty()
 
                 .MustAsync(async (x, cancellation) => await CustomerExists(x, cancellation))
-                .WithMessage(x => $"Покупателя с ID {x} не существует.")
+                .WithMessage(x => $"Покупателя с ID {x.CustomerId} не существует.")
                 ;
 
             RuleFor(x => x.ExecutionDate)

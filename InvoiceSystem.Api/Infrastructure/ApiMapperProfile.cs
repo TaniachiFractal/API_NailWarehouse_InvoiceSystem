@@ -22,15 +22,19 @@ namespace InvoiceSystem.Api.Infrastructure
         {
             CreateMap<CustomerModel, CustomerApiModel>(MemberList.Destination);
             CreateMap<AddCustomerApiModel, AddCustomerModel>(MemberList.Destination);
+            CreateMap<AddCustomerApiModel, CustomerModel>(MemberList.Destination);
 
             CreateMap<InvoiceModel, InvoiceApiModel>(MemberList.Destination);
             CreateMap<AddInvoiceApiModel, AddInvoiceModel>(MemberList.Destination);
+            CreateMap<AddInvoiceApiModel, InvoiceModel>(MemberList.Destination);
 
             CreateMap<ProductModel, ProductApiModel>(MemberList.Destination);
             CreateMap<AddProductApiModel, AddProductModel>(MemberList.Destination);
+            CreateMap<AddProductApiModel, ProductModel>(MemberList.Destination);
 
             CreateMap<SaleModel, SaleApiModel>(MemberList.Destination);
             CreateMap<AddSaleApiModel, AddSaleModel>(MemberList.Destination);
+            CreateMap<AddSaleApiModel, SaleModel>(MemberList.Destination);
         }
     }
 }

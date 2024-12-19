@@ -83,8 +83,8 @@ namespace InvoiceSystem.Database.Migrations
                     b.Property<DateTimeOffset?>("DeletedDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<DateTimeOffset>("ExecutionDate")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("ExecutionDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTimeOffset?>("UpdatedDate")
                         .HasColumnType("datetimeoffset");

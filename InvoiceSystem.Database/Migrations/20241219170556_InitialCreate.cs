@@ -7,7 +7,6 @@ namespace InvoiceSystem.Database.Migrations
 {
     public partial class InitialCreate : Migration
     {
-        /// <inheritdoc/>
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -49,7 +48,7 @@ namespace InvoiceSystem.Database.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ExecutionDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ExecutionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     DeletedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
@@ -131,7 +130,6 @@ namespace InvoiceSystem.Database.Migrations
                 column: "ProductId");
         }
 
-        /// <inheritdoc/>
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

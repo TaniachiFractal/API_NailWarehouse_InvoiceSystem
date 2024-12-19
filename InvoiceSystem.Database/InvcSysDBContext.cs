@@ -44,9 +44,7 @@ namespace InvoiceSystem.Database
         /// Конструктор
         /// </summary>
         public InvcSysDBContext(DbContextOptions<InvcSysDBContext> options) : base(options)
-        {
-
-        }
+        { }
 
         /// <summary>
         /// При генерации модели указать сборку с конфигурацией таблиц

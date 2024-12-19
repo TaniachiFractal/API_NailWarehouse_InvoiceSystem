@@ -83,6 +83,7 @@ namespace InvoiceSystem.Api
             ([FromRoute] Guid id, [FromBody] TAddApiModel request, CancellationToken cancellationToken)
         {
             var model = mapper.Map<TObjectModel>(request);
+            model.Id = id;
             await validationService.Validate(model, cancellationToken);
             model.Id = id;
             await service.Edit(model, cancellationToken);

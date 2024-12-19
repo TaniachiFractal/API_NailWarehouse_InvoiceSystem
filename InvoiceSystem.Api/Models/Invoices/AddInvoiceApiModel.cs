@@ -11,6 +11,6 @@ namespace InvoiceSystem.Api.Models.Invoices
         public Guid CustomerId { get; set; }
 
         /// <inheritdoc/> 
-        public DateTimeOffset ExecutionDate { get; set; }
+        public DateTime ExecutionDate { get; set; }
     }
 }

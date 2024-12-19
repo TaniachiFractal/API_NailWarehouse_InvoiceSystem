@@ -25,7 +25,7 @@ namespace InvoiceSystem.Services.Models.Customers
                 .Length(Cnst.MinLen, Cnst.MaxNameLen)
 
                 .MustAsync(async (x, cancellation) => await NameIsUniqueAsync(x, cancellation))
-                .WithMessage(x => $"Покупатель с названием {x} уже существует.")
+                .WithMessage(x => $"Покупатель с названием {x.Name} уже существует.")
                 ;
 
             RuleFor(x => x.INN)
@@ -37,7 +37,7 @@ namespace InvoiceSystem.Services.Models.Customers
                 .WithMessage($"ИНН должен содержать только цифры")
 
                 .MustAsync(async (x, cancellation) => await INNIsUniqueAsync(x, cancellation))
-                .WithMessage(x => $"Покупатель с ИНН {x} уже существует.")
+                .WithMessage(x => $"Покупатель с ИНН {x.INN} уже существует.")
                 ;
 
             RuleFor(x => x.Address)

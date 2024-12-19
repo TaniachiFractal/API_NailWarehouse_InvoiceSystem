@@ -13,6 +13,6 @@
         /// <summary>
         /// Дата исполнения
         /// </summary>
-        public DateTimeOffset ExecutionDate { get; set; }
+        public DateTime ExecutionDate { get; set; }
     }
 }
