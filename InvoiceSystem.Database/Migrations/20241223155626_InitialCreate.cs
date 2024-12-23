@@ -116,7 +116,6 @@ namespace InvoiceSystem.Database.Migrations
                 name: "IX_Name_DeletedDate",
                 table: "Products",
                 column: "Name",
-                unique: true,
                 filter: "DeletedDate is null");
 
             migrationBuilder.CreateIndex(

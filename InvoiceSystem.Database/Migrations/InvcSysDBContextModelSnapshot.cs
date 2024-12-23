@@ -123,7 +123,6 @@ namespace InvoiceSystem.Database.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
-                        .IsUnique()
                         .HasDatabaseName("IX_Name_DeletedDate")
                         .HasFilter("DeletedDate is null");
 

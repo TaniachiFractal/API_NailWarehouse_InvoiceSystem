@@ -11,8 +11,11 @@ namespace InvoiceSystem.Services.Models.Customers
         /// <summary>
         /// Конструктор
         /// </summary>
-        public CustomerModelValidator(ICustomerReadRepository readRepository) : base(new AddCustomerModelValidator(readRepository))
+        public CustomerModelValidator(ICustomerReadRepository readRepository) : base()
         {
+            AddCustomerModelValidator.RuleForINN(this, readRepository);
+            AddCustomerModelValidator.RuleForAddress(this);
+            AddCustomerModelValidator.RuleForName(this);
         }
     }
 }

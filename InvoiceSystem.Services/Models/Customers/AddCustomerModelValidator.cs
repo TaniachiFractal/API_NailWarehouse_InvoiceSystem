@@ -10,51 +10,67 @@ namespace InvoiceSystem.Services.Models.Customers
     /// </summary>
     public class AddCustomerModelValidator : AbstractValidator<AddCustomerModel>
     {
-        private readonly ICustomerReadRepository customerReadRepository;
-
         /// <summary>
         /// Конструктор
         /// </summary>
         public AddCustomerModelValidator(ICustomerReadRepository customerReadRepository)
         {
-            this.customerReadRepository = customerReadRepository;
+            RuleForName(this);
+            RuleForINN(this, customerReadRepository);
+            RuleForAddress(this);
+        }
 
-            RuleFor(x => x.Name)
+        /// <summary>
+        /// Задать правила для ИНН
+        /// </summary>
+        public static void RuleForINN<T>(
+            AbstractValidator<T> validator,
+            ICustomerReadRepository customerReadRepository)
+            where T : AddCustomerModel
+        {
+            validator
+               .RuleFor(x => x.INN)
+               .NotNull()
+               .NotEmpty()
+               .Length(Cnst.INNLen)
+
+               .Must(x => long.TryParse(x, out var val) && val > 0)
+               .WithMessage($"ИНН должен содержать только цифры")
+
+               .MustAsync(async (x, cancellation) => await INNIsUniqueAsync(x, cancellation, customerReadRepository))
+               .WithMessage(x => $"Покупатель с ИНН {x.INN} уже существует.")
+               ;
+        }
+
+        /// <summary>
+        /// Задать правила для названия
+        /// </summary>
+        public static void RuleForName<T>(AbstractValidator<T> validator) where T : AddCustomerModel
+        {
+            validator
+                .RuleFor(x => x.Name)
                 .NotNull()
                 .NotEmpty()
-                .Length(Cnst.MinLen, Cnst.MaxNameLen)
+                .Length(Cnst.MinLen, Cnst.MaxNameLen);
+        }
 
-                .MustAsync(async (x, cancellation) => await NameIsUniqueAsync(x, cancellation))
-                .WithMessage(x => $"Покупатель с названием {x.Name} уже существует.")
-                ;
-
-            RuleFor(x => x.INN)
-                .NotNull()
-                .NotEmpty()
-                .Length(Cnst.INNLen)
-
-                .Must(x => long.TryParse(x, out var val) && val > 0)
-                .WithMessage($"ИНН должен содержать только цифры")
-
-                .MustAsync(async (x, cancellation) => await INNIsUniqueAsync(x, cancellation))
-                .WithMessage(x => $"Покупатель с ИНН {x.INN} уже существует.")
-                ;
-
-            RuleFor(x => x.Address)
+        /// <summary>
+        /// Задать правила для адреса
+        /// </summary>
+        public static void RuleForAddress<T>(AbstractValidator<T> validator) where T : AddCustomerModel
+        {
+            validator
+                .RuleFor(x => x.Address)
                 .NotNull()
                 .NotEmpty()
                 .Length(Cnst.MinLen, Cnst.MaxAddressLen)
                 ;
         }
 
-        private async Task<bool> NameIsUniqueAsync(string name, CancellationToken cancellationToken)
-        {
-            var customers = await customerReadRepository.GetAll(cancellationToken);
-            var customer = customers.FirstOrDefault(x => x.Name == name);
-            return customer == null;
-        }
-
-        private async Task<bool> INNIsUniqueAsync(string inn, CancellationToken cancellationToken)
+        private static async Task<bool> INNIsUniqueAsync(
+            string inn,
+            CancellationToken cancellationToken,
+            ICustomerReadRepository customerReadRepository)
         {
             var customers = await customerReadRepository.GetAll(cancellationToken);
             var customer = customers.FirstOrDefault(x => x.INN == inn);

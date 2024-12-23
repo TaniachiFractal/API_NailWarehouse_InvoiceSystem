@@ -11,7 +11,7 @@ namespace InvoiceSystem.Services.Models.Products
         /// <summary>
         /// Конструктор
         /// </summary>
-        public ProductModelValidator(IProductReadRepository readRepository) : base(new AddProductModelValidator(readRepository))
+        public ProductModelValidator() : base(new AddProductModelValidator())
         {
         }
     }

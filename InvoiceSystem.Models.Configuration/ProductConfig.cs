@@ -26,7 +26,6 @@ namespace InvoiceSystem.Models.Configuration
 
             builder.HasIndex(x => x.Name)
                 .HasDatabaseName(Cnst.IndexFormatString(nameof(Product.Name)))
-                .IsUnique()
                 .HasFilter(Cnst.DeletedFilterStr)
                 ;
 

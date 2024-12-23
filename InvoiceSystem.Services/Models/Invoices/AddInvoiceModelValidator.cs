@@ -18,14 +18,29 @@ namespace InvoiceSystem.Services.Models.Invoices
         {
             this.customerReadRepository = customerReadRepository;
 
+            RuleForCustomerId();
+            RuleForExecutionDate();
+        }
+
+        /// <summary>
+        /// Правило для ID покупателя
+        /// </summary>
+        public void RuleForCustomerId()
+        {
             RuleFor(x => x.CustomerId)
-                .NotNull()
-                .NotEmpty()
+               .NotNull()
+               .NotEmpty()
 
-                .MustAsync(async (x, cancellation) => await CustomerExists(x, cancellation))
-                .WithMessage(x => $"Покупателя с ID {x.CustomerId} не существует.")
-                ;
+               .MustAsync(async (x, cancellation) => await CustomerExists(x, cancellation))
+               .WithMessage(x => $"Покупателя с ID {x.CustomerId} не существует.")
+               ;
+        }
 
+        /// <summary>
+        /// Правило для даты исполнения
+        /// </summary>
+        public void RuleForExecutionDate()
+        {
             RuleFor(x => x.ExecutionDate)
                 .NotNull()
                 .NotEmpty()

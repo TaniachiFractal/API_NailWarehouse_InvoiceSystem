@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using InvoiceSystem.Models.Configuration;
 using InvoiceSystem.Models.Products;
-using InvoiceSystem.Repositories.Contracts.Products;
 
 namespace InvoiceSystem.Services.Models.Products
 {
@@ -10,37 +9,37 @@ namespace InvoiceSystem.Services.Models.Products
     /// </summary>
     public class AddProductModelValidator : AbstractValidator<AddProductModel>
     {
-        private readonly IProductReadRepository productReadRepository;
-
         /// <summary>
         /// Конструктор
         /// </summary>
-        public AddProductModelValidator(IProductReadRepository productReadRepository)
+        public AddProductModelValidator()
         {
-            this.productReadRepository = productReadRepository;
+            RuleForName();
+            RuleForPrice();
+        }
 
+        /// <summary>
+        /// Правило для названия
+        /// </summary>
+        public void RuleForName()
+        {
             RuleFor(x => x.Name)
                 .NotNull()
                 .NotEmpty()
-                .Length(Cnst.MinLen, Cnst.MaxNameLen)
+                .Length(Cnst.MinLen, Cnst.MaxNameLen);
+        }
 
-                .MustAsync(async (x, cancellation) => await NameIsUniqueAsync(x, cancellation))
-                .WithMessage(x => $"Товар с названием {x.Name} уже существует.")
-                ;
-
+        /// <summary>
+        /// Правило для цены
+        /// </summary>
+        public void RuleForPrice()
+        {
             RuleFor(x => x.Price)
                 .NotNull()
                 .NotEmpty()
                 .LessThan(decimal.MaxValue)
                 .GreaterThan(0)
                 ;
-        }
-
-        private async Task<bool> NameIsUniqueAsync(string name, CancellationToken cancellationToken)
-        {
-            var products = await productReadRepository.GetAll(cancellationToken);
-            var product = products.FirstOrDefault(x => x.Name == name);
-            return product == null;
         }
     }
 }

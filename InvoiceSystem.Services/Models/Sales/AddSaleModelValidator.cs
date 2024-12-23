@@ -21,14 +21,30 @@ namespace InvoiceSystem.Services.Models.Sales
             this.invoiceReadRepository = invoiceReadRepository;
             this.productReadRepository = productReadRepository;
 
+            RuleForProductId();
+            RuleForInvoiceId();
+            RuleForSoldCount();
+        }
+
+        /// <summary>
+        /// Правило для ID товара
+        /// </summary>
+        public void RuleForProductId()
+        {
             RuleFor(x => x.ProductId)
-                .NotNull()
-                .NotEmpty()
+                            .NotNull()
+                            .NotEmpty()
 
-                .MustAsync(async (x, cancellation) => await ProductExists(x, cancellation))
-                .WithMessage(x => $"Товара с ID {x.ProductId} не существует.")
-                ;
+                            .MustAsync(async (x, cancellation) => await ProductExists(x, cancellation))
+                            .WithMessage(x => $"Товара с ID {x.ProductId} не существует.")
+                            ;
+        }
 
+        /// <summary>
+        /// Правило для ID накладной
+        /// </summary>
+        public void RuleForInvoiceId()
+        {
             RuleFor(x => x.InvoiceId)
                 .NotNull()
                 .NotEmpty()
@@ -36,8 +52,13 @@ namespace InvoiceSystem.Services.Models.Sales
                 .MustAsync(async (x, cancellation) => await InvoiceExists(x, cancellation))
                 .WithMessage(x => $"Накладной с ID {x.ProductId} не существует.")
                 ;
-            ;
+        }
 
+        /// <summary>
+        /// Правило для количества проданных единиц
+        /// </summary>
+        public void RuleForSoldCount()
+        {
             RuleFor(x => x.SoldCount)
                 .NotNull()
                 .NotEmpty()

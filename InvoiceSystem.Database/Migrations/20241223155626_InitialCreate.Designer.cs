@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvoiceSystem.Database.Migrations
 {
     [DbContext(typeof(InvcSysDBContext))]
-    [Migration("20241219170556_InitialCreate")]
+    [Migration("20241223155626_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -125,7 +125,6 @@ namespace InvoiceSystem.Database.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
-                        .IsUnique()
                         .HasDatabaseName("IX_Name_DeletedDate")
                         .HasFilter("DeletedDate is null");
 

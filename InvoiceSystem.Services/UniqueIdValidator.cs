@@ -12,9 +12,10 @@ namespace InvoiceSystem.Services
         /// <summary>
         /// Конструктор
         /// </summary>
-        public UniqueIdValidator(AbstractValidator<TAddObjectModel> addObjectModelValidator)
+        public UniqueIdValidator(AbstractValidator<TAddObjectModel> addObjectModelValidator = null)
         {
-            Include((IValidator<TObjectModel>)addObjectModelValidator);
+            if (addObjectModelValidator != null)
+            { Include((IValidator<TObjectModel>)addObjectModelValidator); }
             RuleFor(x => x.Id).NotEmpty();
         }
     }
