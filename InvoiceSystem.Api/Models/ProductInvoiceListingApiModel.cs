@@ -6,6 +6,9 @@ namespace InvoiceSystem.Api.Models
     public class ProductInvoiceListingApiModel : IProductInvoiceListingModel
     {
         /// <inheritdoc/>
+        public Guid ProductId { get; set; }
+
+        /// <inheritdoc/>
         public string Name { get; set; }
 
         /// <inheritdoc/>

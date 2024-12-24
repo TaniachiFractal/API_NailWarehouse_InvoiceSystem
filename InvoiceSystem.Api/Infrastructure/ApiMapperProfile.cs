@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using InvoiceSystem.Api.Models;
 using InvoiceSystem.Api.Models.Customers;
 using InvoiceSystem.Api.Models.Invoices;
 using InvoiceSystem.Api.Models.Products;
 using InvoiceSystem.Api.Models.Sales;
+using InvoiceSystem.Models;
 using InvoiceSystem.Models.Customers;
 using InvoiceSystem.Models.Invoices;
 using InvoiceSystem.Models.Products;
@@ -35,6 +37,8 @@ namespace InvoiceSystem.Api.Infrastructure
             CreateMap<SaleModel, SaleApiModel>(MemberList.Destination);
             CreateMap<AddSaleApiModel, AddSaleModel>(MemberList.Destination);
             CreateMap<AddSaleApiModel, SaleModel>(MemberList.Destination);
+
+            CreateMap<FullInvoiceInfoModel, FullInvoiceInfoApiModel>(MemberList.Destination);
         }
     }
 }

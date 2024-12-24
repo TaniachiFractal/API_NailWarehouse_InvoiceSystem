@@ -15,6 +15,7 @@ namespace InvoiceSystem.Database.Migrations
     [Migration("20241223155626_InitialCreate")]
     partial class InitialCreate
     {
+        /// <inheritdoc/>
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618

@@ -41,6 +41,7 @@ namespace InvoiceSystem.Services
                 var product = await productRep.GetById(sale.ProductId, cancellationToken);
                 productListings.Add(new ProductInvoiceListingModel
                 {
+                    ProductId = product.Id,
                     Name = product.Name,
                     Count = sale.SoldCount,
                     Price = product.Price,
@@ -53,8 +54,10 @@ namespace InvoiceSystem.Services
 
             return new FullInvoiceInfoModel
             {
+                InvoiceId = invoiceId,
                 Number = invoice.Id.GetHashCode(),
                 ExecDate = invoice.ExecutionDate.Date,
+                CustomerId = customer.Id,
                 CustomerName = customer.Name,
                 CustomerAddress = customer.Address,
                 CustomerINN = customer.INN,

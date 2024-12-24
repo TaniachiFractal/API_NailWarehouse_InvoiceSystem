@@ -12,6 +12,7 @@ using InvoiceSystem.Repositories.Invoices;
 using InvoiceSystem.Repositories.Products;
 using InvoiceSystem.Repositories.Sales;
 using InvoiceSystem.Services;
+using InvoiceSystem.Services.Contracts;
 using InvoiceSystem.Services.Contracts.Models.Customers;
 using InvoiceSystem.Services.Contracts.Models.Invoices;
 using InvoiceSystem.Services.Contracts.Models.Products;
@@ -66,6 +67,8 @@ namespace InvoiceSystem.Api
 
             #region Services
 
+            builder.Services.AddScoped<IMainService, MainService>();
+
             builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<IInvoiceService, InvoiceService>();
             builder.Services.AddScoped<IProductService, ProductService>();
@@ -83,7 +86,6 @@ namespace InvoiceSystem.Api
             #endregion
 
             builder.Services.AddSingleton<IDateTimeOffsetProvider, DateTimeOffsetProvider>();
-
             builder.Services.AddAutoMapper(typeof(ApiMapperProfile), typeof(AppAutoMapperProfile));
 
             builder.Services.AddEndpointsApiExplorer();

@@ -25,6 +25,7 @@ namespace InvoiceSystem.Repositories
         public async Task<IReadOnlyCollection<T>> GetAll(CancellationToken cancellationToken)
              => await reader.Read<T>()
                     .NotDeleted()
+                    .OrderBy(x => x.CreatedDate)
                     .ToListAsync(cancellationToken);
 
         /// <inheritdoc/>

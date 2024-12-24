@@ -7,44 +7,34 @@ namespace InvoiceSystem.Api.Models
     /// </summary>
     public class FullInvoiceInfoApiModel : IFullInvoiceInfoModel<ProductInvoiceListingApiModel>
     {
-        /// <summary>
-        /// Номер
-        /// </summary>
+        /// <inheritdoc/>
+        public Guid InvoiceId { get; set; }
+
+        /// <inheritdoc/>
         public int Number { get; set; }
 
-        /// <summary>
-        /// Дата исполнения
-        /// </summary>
+        /// <inheritdoc/>
         public DateTime ExecDate { get; set; }
 
-        /// <summary>
-        /// Имя покупателя
-        /// </summary>
+        /// <inheritdoc/>
+        public Guid CustomerId { get; set; }
+
+        /// <inheritdoc/>
         public string CustomerName { get; set; }
 
-        /// <summary>
-        /// ИНН покупателя
-        /// </summary>
+        /// <inheritdoc/>
         public string CustomerINN { get; set; }
 
-        /// <summary>
-        /// Адрес покупателя
-        /// </summary>
+        /// <inheritdoc/>
         public string CustomerAddress { get; set; }
 
-        /// <summary>
-        /// Список записей о товарах
-        /// </summary>
+        /// <inheritdoc/>
         public IEnumerable<ProductInvoiceListingApiModel> Products { get; set; }
 
-        /// <summary>
-        /// Налог
-        /// </summary>
+        /// <inheritdoc/>
         public decimal Tax { get; set; }
 
-        /// <summary>
-        /// Итого
-        /// </summary>
+        /// <inheritdoc/>
         public decimal FullSummary { get; set; }
     }
 }

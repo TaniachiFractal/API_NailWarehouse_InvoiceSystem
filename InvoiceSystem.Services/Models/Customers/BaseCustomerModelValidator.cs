@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using InvoiceSystem.Models.Configuration;
 using InvoiceSystem.Models.Customers;
-using InvoiceSystem.Repositories.Contracts.Customers;
 
 namespace InvoiceSystem.Services.Models.Customers
 {
@@ -30,7 +29,7 @@ namespace InvoiceSystem.Services.Models.Customers
                .NotEmpty()
                .Length(Cnst.INNLen)
 
-               .Must(x => long.TryParse(x, out var val) && val > 0)
+               .Must(x => long.TryParse(x, out var val) && val > -1)
                .WithMessage($"ИНН должен содержать только цифры");
         }
 

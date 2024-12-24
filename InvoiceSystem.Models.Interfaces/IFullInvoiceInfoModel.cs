@@ -6,6 +6,11 @@
     public interface IFullInvoiceInfoModel<TProductListing> where TProductListing : IProductInvoiceListingModel
     {
         /// <summary>
+        /// ID накладной
+        /// </summary>
+        public Guid InvoiceId { get; set; }
+
+        /// <summary>
         /// Номер
         /// </summary>
         public int Number { get; set; }
@@ -14,6 +19,11 @@
         /// Дата исполнения
         /// </summary>
         public DateTime ExecDate { get; set; }
+
+        /// <summary>
+        /// ID покупателя
+        /// </summary>
+        public Guid CustomerId { get; set; }
 
         /// <summary>
         /// Имя покупателя

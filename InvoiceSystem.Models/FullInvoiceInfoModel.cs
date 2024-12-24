@@ -6,10 +6,16 @@ namespace InvoiceSystem.Models
     public class FullInvoiceInfoModel : IFullInvoiceInfoModel<ProductInvoiceListingModel>
     {
         /// <inheritdoc/>
+        public Guid InvoiceId { get; set; }
+
+        /// <inheritdoc/>
         public int Number { get; set; }
 
         /// <inheritdoc/>
         public DateTime ExecDate { get; set; }
+
+        /// <inheritdoc/>
+        public Guid CustomerId { get; set; }
 
         /// <inheritdoc/>
         public string CustomerName { get; set; }
