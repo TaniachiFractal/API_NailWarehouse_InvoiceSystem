@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using InvoiceSystem.Api.ResponseAttributes;
-using InvoiceSystem.Database.Contracts.DBInterfaces;
 using InvoiceSystem.Database.Contracts.ModelInterfaces;
 using InvoiceSystem.Models;
 using InvoiceSystem.Services.Contracts;
@@ -85,7 +84,6 @@ namespace InvoiceSystem.Api
             var model = mapper.Map<TObjectModel>(request);
             model.Id = id;
             await validationService.Validate(model, cancellationToken);
-            model.Id = id;
             await service.Edit(model, cancellationToken);
             return NoContent();
         }
