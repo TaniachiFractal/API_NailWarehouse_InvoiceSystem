@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\InvoiceSystem.Common\InvoiceSystem.Common.csproj" />
     <ProjectReference Include="..\InvoiceSystem.Models.Configuration\InvoiceSystem.Models.Configuration.csproj" />
     <ProjectReference Include="..\InvoiceSystem.Models\InvoiceSystem.Models.csproj" />
   </ItemGroup>

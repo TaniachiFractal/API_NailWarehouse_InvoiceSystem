@@ -1,4 +1,5 @@
-﻿using InvoiceSystem.Models.Customers;
+﻿using InvoiceSystem.Common;
+using InvoiceSystem.Models.Customers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -23,8 +24,8 @@ namespace InvoiceSystem.Models.Configuration
                 ;
 
             builder.HasIndex(x => x.Name)
-                .HasDatabaseName(Cnst.IndexFormatString(nameof(Customer.Name)))
-                .HasFilter(Cnst.DeletedFilterStr)
+                .HasDatabaseName(StringFormaters.IndexFormatString(nameof(Customer.Name)))
+                .HasFilter(StringFormaters.DeletedFilterStr)
                 ;
 
             #endregion
@@ -38,9 +39,9 @@ namespace InvoiceSystem.Models.Configuration
                 ;
 
             builder.HasIndex(x => x.INN)
-                .HasDatabaseName(Cnst.IndexFormatString(nameof(Customer.INN)))
+                .HasDatabaseName(StringFormaters.IndexFormatString(nameof(Customer.INN)))
                 .IsUnique()
-                .HasFilter(Cnst.DeletedFilterStr)
+                .HasFilter(StringFormaters.DeletedFilterStr)
                 ;
 
             #endregion

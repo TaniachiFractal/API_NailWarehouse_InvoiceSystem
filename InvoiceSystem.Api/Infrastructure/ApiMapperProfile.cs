@@ -38,7 +38,9 @@ namespace InvoiceSystem.Api.Infrastructure
             CreateMap<AddSaleApiModel, AddSaleModel>(MemberList.Destination);
             CreateMap<AddSaleApiModel, SaleModel>(MemberList.Destination);
 
-            CreateMap<FullInvoiceInfoModel, FullInvoiceInfoApiModel>(MemberList.Destination);
+            CreateMap<ProductInvoiceListingModel, ProductInvoiceListingApiModel>();
+            CreateMap<FullInvoiceInfoModel, FullInvoiceInfoApiModel>()
+                .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products));
         }
     }
 }

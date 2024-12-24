@@ -13,7 +13,7 @@
         /// <summary>
         /// Номер
         /// </summary>
-        public int Number { get; set; }
+        public uint Number { get; set; }
 
         /// <summary>
         /// Дата исполнения

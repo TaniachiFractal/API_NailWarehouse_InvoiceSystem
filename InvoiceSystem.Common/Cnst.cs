@@ -1,9 +1,7 @@
-﻿using InvoiceSystem.Database.Contracts.ModelInterfaces;
-
-namespace InvoiceSystem.Models.Configuration
+﻿namespace InvoiceSystem.Common
 {
     /// <summary>
-    /// Константы полей таблиц
+    /// Общие константы
     /// </summary>
     public static class Cnst
     {
@@ -28,14 +26,8 @@ namespace InvoiceSystem.Models.Configuration
         public const int MaxAddressLen = 1023;
 
         /// <summary>
-        /// Строка фильтра удалённого объекта
+        /// Строка подключения к БД
         /// </summary>
-        public readonly static string DeletedFilterStr = $"{nameof(ISoftDeleted.DeletedDate)} is null";
-
-        /// <returns>Строку названия индекса по шаблону</returns>
-        public static string IndexFormatString(string field)
-        {
-            return $"IX_{field}_{nameof(ISoftDeleted.DeletedDate)}";
-        }
+        public const string DBConString = "Server=(localdb)\\mssqllocaldb;Database=MaslovaInvoiceSystem;Trusted_Connection=True;";
     }
 }

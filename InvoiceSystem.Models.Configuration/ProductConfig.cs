@@ -1,4 +1,5 @@
-﻿using InvoiceSystem.Models.Products;
+﻿using InvoiceSystem.Common;
+using InvoiceSystem.Models.Products;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -25,8 +26,8 @@ namespace InvoiceSystem.Models.Configuration
                 ;
 
             builder.HasIndex(x => x.Name)
-                .HasDatabaseName(Cnst.IndexFormatString(nameof(Product.Name)))
-                .HasFilter(Cnst.DeletedFilterStr)
+                .HasDatabaseName(StringFormaters.IndexFormatString(nameof(Product.Name)))
+                .HasFilter(StringFormaters.DeletedFilterStr)
                 ;
 
             #endregion

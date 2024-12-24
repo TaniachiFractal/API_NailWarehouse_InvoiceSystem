@@ -30,7 +30,6 @@ namespace InvoiceSystem.Api
         private static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
             builder.Services.AddControllers(c =>
             {
                 c.Filters.Add<ExceptionFilter>();
@@ -40,7 +39,7 @@ namespace InvoiceSystem.Api
 
             builder.Services.AddDbContext<InvcSysDBContext>(c =>
             {
-                c.UseSqlServer(builder.Configuration.GetConnectionString("MainCon"));
+                c.UseSqlServer(Cnst.DBConString);
             });
 
             builder.Services.AddScoped<IReader>(c => c.GetRequiredService<InvcSysDBContext>());

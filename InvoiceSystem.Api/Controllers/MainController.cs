@@ -28,13 +28,24 @@ namespace InvoiceSystem.Api.Controllers
         /// <summary>
         /// Получить все данные накладной
         /// </summary>
-        [HttpGet("{id:guid}")]
+        [HttpGet("{InvoiceId:guid}")]
         [ProducesNotFound()]
         [ProducesType(typeof(FullInvoiceInfoApiModel))]
-        public virtual async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetById(Guid InvoiceId, CancellationToken cancellationToken)
         {
-            var item = await mainService.GetFullInvoiceInfo(id, cancellationToken);
+            var item = await mainService.GetFullInvoiceInfo(InvoiceId, cancellationToken);
             var result = mapper.Map<FullInvoiceInfoApiModel>(item);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Получить данные всех таблиц в виде SQL запросов
+        /// </summary>
+        [HttpGet]
+        [ProducesType(typeof(string))]
+        public async Task<IActionResult> GetAllTablesAsSQLQueries(CancellationToken cancellationToken)
+        {
+            var result = await mainService.GetAllTablesAsSQLQueries(cancellationToken);
             return Ok(result);
         }
     }

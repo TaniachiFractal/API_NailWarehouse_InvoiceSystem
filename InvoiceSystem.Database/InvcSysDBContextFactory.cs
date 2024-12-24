@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using InvoiceSystem.Common;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace InvoiceSystem.Database
@@ -11,7 +12,7 @@ namespace InvoiceSystem.Database
         InvcSysDBContext IDesignTimeDbContextFactory<InvcSysDBContext>.CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<InvcSysDBContext>();
-            optionsBuilder.UseSqlServer($@"Server=(localdb)\mssqllocaldb;Database=MaslovaInvoiceSystem;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(Cnst.DBConString);
             return new InvcSysDBContext(optionsBuilder.Options);
         }
     }

@@ -11,7 +11,7 @@ namespace InvoiceSystem.Api.Models
         public Guid InvoiceId { get; set; }
 
         /// <inheritdoc/>
-        public int Number { get; set; }
+        public uint Number { get; set; }
 
         /// <inheritdoc/>
         public DateTime ExecDate { get; set; }

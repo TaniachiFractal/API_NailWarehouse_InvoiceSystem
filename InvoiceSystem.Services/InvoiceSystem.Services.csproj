@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\InvoiceSystem.Common\InvoiceSystem.Common.csproj" />
     <ProjectReference Include="..\InvoiceSystem.Database\InvoiceSystem.Database.csproj" />
     <ProjectReference Include="..\InvoiceSystem.Exceptions\InvoiceSystem.Exceptions.csproj" />
     <ProjectReference Include="..\InvoiceSystem.Repositories.Contracts\InvoiceSystem.Repositories.Contracts.csproj" />
