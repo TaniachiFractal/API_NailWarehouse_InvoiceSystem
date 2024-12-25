@@ -1,4 +1,6 @@
-﻿using InvoiceSystem.TestsBase;
+﻿using InvoiceSystem.Database;
+using InvoiceSystem.Services.Contracts.Models.Customers;
+using InvoiceSystem.TestsBase;
 using Xunit;
 
 namespace InvoiceSystem.Services.Tests

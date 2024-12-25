@@ -2,7 +2,8 @@
 using FluentValidation.TestHelper;
 using InvoiceSystem.Common;
 using InvoiceSystem.Database;
-using InvoiceSystem.Models.Customers;
+using InvoiceSystem.Database.Contracts.Repositories;
+using InvoiceSystem.Models.Interfaces;
 using InvoiceSystem.Repositories.Contracts.Customers;
 using InvoiceSystem.Repositories.Customers;
 using InvoiceSystem.Services.Models.Customers;
@@ -15,19 +16,9 @@ namespace InvoiceSystem.Services.Tests.Validators.BaseObjectModelValidators
     /// Тесты <see cref="AddCustomerModelValidator"/> и <see cref="CustomerModelValidator"/>
     /// </summary>
     [Collection(nameof(DBTestsCollection))]
-    public abstract class BaseCustomerModelValidatorTests<TModel> where TModel : AddCustomerModel, new()
+    public abstract class BaseCustomerModelValidatorTests<TModel> : BaseValidatorTests<TModel>
+        where TModel : class, ICustomer, new()
     {
-        /// <summary>
-        /// Контекст БД
-        /// </summary>
-        readonly protected InvcSysDBContext dBContext;
-        /// <summary>
-        /// Валидатор
-        /// </summary>
-        readonly protected AbstractValidator<TModel> validator;
-
-        private readonly CancellationToken cancellationToken;
-
         /// <summary>
         /// Конструктор валидатора
         /// </summary>
@@ -36,10 +27,8 @@ namespace InvoiceSystem.Services.Tests.Validators.BaseObjectModelValidators
         /// <summary>
         /// Конструктор
         /// </summary>
-        public BaseCustomerModelValidatorTests(DBTestsFixture fixture)
+        protected BaseCustomerModelValidatorTests(DBTestsFixture fixture) : base(fixture)
         {
-            dBContext = fixture.DbContext;
-            cancellationToken = fixture.CancellationToken;
             validator = Validator(new CustomerReadRepository(dBContext));
         }
 

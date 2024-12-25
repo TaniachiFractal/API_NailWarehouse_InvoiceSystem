@@ -1,50 +1,34 @@
 ﻿using Ahatornn.TestGenerator;
 using FluentValidation;
 using FluentValidation.TestHelper;
-using InvoiceSystem.Common;
-using InvoiceSystem.Database;
 using InvoiceSystem.Models.Customers;
-using InvoiceSystem.Models.Invoices;
+using InvoiceSystem.Models.Interfaces;
 using InvoiceSystem.Repositories.Contracts.Customers;
-using InvoiceSystem.Repositories.Contracts.Invoices;
 using InvoiceSystem.Repositories.Customers;
-using InvoiceSystem.Repositories.Invoices;
-using InvoiceSystem.Services.Models.Customers;
+using InvoiceSystem.Services.Models.Invoices;
 using InvoiceSystem.TestsBase;
 using Xunit;
 
 namespace InvoiceSystem.Services.Tests.Validators.BaseObjectModelValidators
 {
     /// <summary>
-    /// Тесты <see cref="AddCustomerModelValidator"/> и <see cref="CustomerModelValidator"/>
+    /// Тесты <see cref="AddInvoiceModelValidator"/> и <see cref="InvoiceModelValidator"/>
     /// </summary>
     [Collection(nameof(DBTestsCollection))]
-    public abstract class BaseInvoiceModelValidatorTests<TModel> where TModel : AddInvoiceModel, new()
+    public abstract class BaseInvoiceModelValidatorTests<TModel> : BaseValidatorTests<TModel>
+        where TModel : class, IInvoice, new()
     {
-        /// <summary>
-        /// Контекст БД
-        /// </summary>
-        readonly protected InvcSysDBContext dBContext;
-        /// <summary>
-        /// Валидатор
-        /// </summary>
-        readonly protected AbstractValidator<TModel> validator;
-
-        private readonly CancellationToken cancellationToken;
-
         /// <summary>
         /// Конструктор валидатора
         /// </summary>
-        protected abstract AbstractValidator<TModel> Validator(IInvoiceReadRepository readRepository);
+        protected abstract AbstractValidator<TModel> Validator(ICustomerReadRepository readRepository);
 
         /// <summary>
         /// Конструктор
         /// </summary>
-        public BaseInvoiceModelValidatorTests(DBTestsFixture fixture)
+        protected BaseInvoiceModelValidatorTests(DBTestsFixture fixture) : base(fixture)
         {
-            dBContext = fixture.DbContext;
-            cancellationToken = fixture.CancellationToken;
-            validator = Validator(new InvoiceReadRepository(dBContext));
+            validator = Validator(new CustomerReadRepository(dBContext));
         }
 
         #region CustomerId
@@ -105,7 +89,21 @@ namespace InvoiceSystem.Services.Tests.Validators.BaseObjectModelValidators
 
         #region Exec Date
 
-        public ay
+        /// <summary>
+        /// Даты исполения нет
+        /// </summary>
+        [Fact]
+        public async Task ShouldHaveErrorForExecDateEmptyAsync()
+        {
+            // Arrange
+            var model = new TModel();
+
+            // Act
+            var result = await validator.TestValidateAsync(model);
+
+            // Assert
+            result.ShouldHaveValidationErrorFor(x => x.ExecutionDate);
+        }
 
         #endregion
 

@@ -32,12 +32,11 @@ namespace InvoiceSystem.Services.Models.Sales
         public void RuleForProductId()
         {
             RuleFor(x => x.ProductId)
-                            .NotNull()
-                            .NotEmpty()
-
-                            .MustAsync(async (x, cancellation) => await ProductExists(x, cancellation))
-                            .WithMessage(x => $"Товара с ID {x.ProductId} не существует.")
-                            ;
+                .NotNull()
+                .NotEmpty()
+                .MustAsync(async (x, cancellation) => await ProductExists(x, cancellation))
+                .WithMessage(x => $"Товара с ID {x.ProductId} не существует.")
+                ;
         }
 
         /// <summary>

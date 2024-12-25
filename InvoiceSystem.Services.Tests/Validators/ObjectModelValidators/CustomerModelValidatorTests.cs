@@ -1,5 +1,4 @@
 ﻿using Ahatornn.TestGenerator;
-using AutoMapper;
 using FluentValidation;
 using FluentValidation.TestHelper;
 using InvoiceSystem.Common;
@@ -15,7 +14,6 @@ namespace InvoiceSystem.Services.Tests.Validators.ObjectModelValidators
     /// <summary>
     /// Тесты <see cref="CustomerModelValidator"/>
     /// </summary>
-    [Collection(nameof(DBTestsCollection))]
     public class CustomerModelValidatorTests : BaseCustomerModelValidatorTests<CustomerModel>
     {
         /// <summary>
@@ -33,7 +31,7 @@ namespace InvoiceSystem.Services.Tests.Validators.ObjectModelValidators
         /// ИНН уже есть в БД
         /// </summary>
         [Fact]
-        public async Task ShouldHaveErrorForINNExists()
+        public async Task ShouldHaveErrorForINNExistsAsync()
         {
             // Arrange
             var inn = Cnst.NewINN();
@@ -55,7 +53,7 @@ namespace InvoiceSystem.Services.Tests.Validators.ObjectModelValidators
         /// ИНН уже есть в БД, но это тот же самый объект
         /// </summary>
         [Fact]
-        public async Task ShouldNotHaveErrorForINNExists()
+        public async Task ShouldNotHaveErrorForINNExistsAsync()
         {
             // Arrange
             var inn = Cnst.NewINN();
@@ -77,7 +75,7 @@ namespace InvoiceSystem.Services.Tests.Validators.ObjectModelValidators
         /// Нет Id
         /// </summary>
         [Fact]
-        public async Task ShouldHaveErrorIdEmpty()
+        public async Task ShouldHaveErrorForIdEmptyAsync()
         {
             // Arrange
             var model = new CustomerModel();

@@ -38,7 +38,7 @@ namespace InvoiceSystem.Services.Models.Products
                 .NotNull()
                 .NotEmpty()
                 .LessThan(decimal.MaxValue)
-                .GreaterThan(0)
+                .GreaterThanOrEqualTo(0)
                 ;
         }
     }

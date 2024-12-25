@@ -14,7 +14,6 @@ namespace InvoiceSystem.Services.Tests.Validators.AddObjectModelValidators
     /// <summary>
     /// Тесты <see cref="AddCustomerModelValidator"/>
     /// </summary>
-    [Collection(nameof(DBTestsCollection))]
     public class AddCustomerModelValidatorTests : BaseCustomerModelValidatorTests<AddCustomerModel>
     {
         /// <summary>
@@ -32,7 +31,7 @@ namespace InvoiceSystem.Services.Tests.Validators.AddObjectModelValidators
         /// ИНН уже есть в БД
         /// </summary>
         [Fact]
-        public async Task ShouldHaveErrorForINNExists()
+        public async Task ShouldHaveErrorForINNExistsAsync()
         {
             // Arrange
             var inn = Cnst.NewINN();
