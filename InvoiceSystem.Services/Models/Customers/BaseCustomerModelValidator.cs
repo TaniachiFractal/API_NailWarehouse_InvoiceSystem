@@ -20,10 +20,7 @@ namespace InvoiceSystem.Services.Models.Customers
             RuleForAddress();
         }
 
-        /// <summary>
-        /// Задать правила для ИНН
-        /// </summary>
-        public void RuleForINN()
+        private void RuleForINN()
         {
             RuleFor(x => x.INN)
                .NotNull()
@@ -34,10 +31,7 @@ namespace InvoiceSystem.Services.Models.Customers
                .WithMessage($"ИНН должен содержать только цифры");
         }
 
-        /// <summary>
-        /// Задать правила для названия
-        /// </summary>
-        public void RuleForName()
+        private void RuleForName()
         {
             RuleFor(x => x.Name)
                 .NotNull()
@@ -45,10 +39,7 @@ namespace InvoiceSystem.Services.Models.Customers
                 .Length(Cnst.MinLen, Cnst.MaxNameLen);
         }
 
-        /// <summary>
-        /// Задать правила для адреса
-        /// </summary>
-        public void RuleForAddress()
+        private void RuleForAddress()
         {
             RuleFor(x => x.Address)
                 .NotNull()
