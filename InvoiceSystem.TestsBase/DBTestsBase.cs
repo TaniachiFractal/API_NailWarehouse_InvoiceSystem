@@ -17,7 +17,7 @@ namespace InvoiceSystem.TestsBase
         /// <summary>
         /// Контекст БД
         /// </summary>
-        public InvcSysDBContext Context => context;
+        public InvcSysDBContext DbContext => context;
 
         /// <summary>
         /// Токен отмены

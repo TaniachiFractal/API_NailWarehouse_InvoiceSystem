@@ -29,5 +29,13 @@
         /// Строка подключения к БД
         /// </summary>
         public const string DBConString = "Server=(localdb)\\mssqllocaldb;Database=MaslovaInvoiceSystem;Trusted_Connection=True;";
+
+        /// <summary>
+        /// Сгенерировать ИНН
+        /// </summary>
+        public static string NewINN()
+        {
+            return new Random().NextInt64(999999999999).ToString("D12");
+        }
     }
 }
