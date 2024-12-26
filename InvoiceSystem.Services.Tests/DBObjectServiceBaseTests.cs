@@ -5,8 +5,6 @@ using InvoiceSystem.Database;
 using InvoiceSystem.Database.Contracts.ModelInterfaces;
 using InvoiceSystem.Exceptions;
 using InvoiceSystem.Models;
-using InvoiceSystem.Services.Contracts;
-using InvoiceSystem.Services.Models.Customers;
 using InvoiceSystem.TestsBase;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -14,14 +12,14 @@ using Xunit;
 namespace InvoiceSystem.Services.Tests
 {
     /// <summary>
-    /// Тесты <see cref="CustomerService"/>
+    /// Тесты наследников <see cref="DBObjectService{TAddObjectModel, TObjectModel, TObject}"/>
     /// </summary>
     [Collection(nameof(DBTestsCollection))]
-    public abstract class BaseServiceTests<TAddObjectModel, TObjectModel, TObject, TObjectService>
+    public abstract class DBObjectServiceBaseTests<TAddObjectModel, TObjectModel, TObject, TObjectService>
         where TObject : DBObject, new()
         where TObjectModel : IUniqueID, TAddObjectModel
         where TAddObjectModel : class, new()
-        where TObjectService : IDBobjectService<TAddObjectModel, TObjectModel, TObject>
+        where TObjectService : DBObjectService<TAddObjectModel, TObjectModel, TObject>
     {
         /// <summary>
         /// Контекст БД
@@ -43,7 +41,7 @@ namespace InvoiceSystem.Services.Tests
         /// <summary>
         /// Конструктор
         /// </summary>
-        public BaseServiceTests(DBTestsFixture fixture)
+        public DBObjectServiceBaseTests(DBTestsFixture fixture)
         {
             dBContext = fixture.DbContext;
             cancellationToken = fixture.CancellationToken;
@@ -132,17 +130,16 @@ namespace InvoiceSystem.Services.Tests
         [Fact]
         public async Task GetByIdShouldThrow()
         {
-            // Arrange
-            var model = NewAddObjectModel();
-            var modelId = await service.Add(model, cancellationToken);
-            await service.Add(NewAddObjectModel(), cancellationToken);
-
             // Act
-            Task act() => service.GetById(Guid.NewGuid(), cancellationToken);
-
+            try
+            {
+                await service.GetById(Guid.NewGuid(), cancellationToken);
+            }
             // Assert
-            var exception = Assert.ThrowsAsync<NotFoundException>(act);
-            exception.Should().NotBeNull();
+            catch (Exception ex)
+            {
+                Assert.True(ex.GetType() == typeof(NotFoundException));
+            }
         }
 
         /// <summary>
@@ -167,7 +164,7 @@ namespace InvoiceSystem.Services.Tests
 
         #endregion
 
-        #region add upd del
+        #region write
 
         /// <summary>
         /// Удаление работает

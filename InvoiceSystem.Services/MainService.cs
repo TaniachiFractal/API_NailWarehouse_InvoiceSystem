@@ -1,6 +1,11 @@
 ﻿using System.Globalization;
 using InvoiceSystem.Common;
+using InvoiceSystem.Exceptions;
 using InvoiceSystem.Models;
+using InvoiceSystem.Models.Customers;
+using InvoiceSystem.Models.Invoices;
+using InvoiceSystem.Models.Products;
+using InvoiceSystem.Models.Sales;
 using InvoiceSystem.Repositories.Contracts.Customers;
 using InvoiceSystem.Repositories.Contracts.Invoices;
 using InvoiceSystem.Repositories.Contracts.Products;
@@ -70,15 +75,15 @@ namespace InvoiceSystem.Services
 
         async Task<FullInvoiceInfoModel> IMainService.GetFullInvoiceInfo(Guid invoiceId, CancellationToken cancellationToken)
         {
-            var invoice = await invoiceRep.GetById(invoiceId, cancellationToken);
-            var customer = await customerRep.GetById(invoice.CustomerId, cancellationToken);
+            var invoice = await invoiceRep.GetById(invoiceId, cancellationToken) ?? throw new NotFoundException(invoiceId, typeof(Invoice));
+            var customer = await customerRep.GetById(invoice.CustomerId, cancellationToken) ?? throw new NotFoundException(invoiceId, typeof(Customer));
             var sales = await saleRep.GetAllWithInvoiceId(invoiceId, cancellationToken);
 
             var sumNoTax = 0M;
             var productListings = new List<ProductInvoiceListingModel>();
             foreach (var sale in sales)
             {
-                var product = await productRep.GetById(sale.ProductId, cancellationToken);
+                var product = await productRep.GetById(sale.ProductId, cancellationToken) ?? throw new NotFoundException(invoiceId, typeof(Product));
                 productListings.Add(new ProductInvoiceListingModel
                 {
                     ProductId = product.Id,

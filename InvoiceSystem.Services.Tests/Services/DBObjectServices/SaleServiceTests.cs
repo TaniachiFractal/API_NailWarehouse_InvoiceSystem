@@ -5,12 +5,12 @@ using InvoiceSystem.Services.Models.Sales;
 using InvoiceSystem.TestsBase;
 using Microsoft.EntityFrameworkCore;
 
-namespace InvoiceSystem.Services.Tests.Services
+namespace InvoiceSystem.Services.Tests.Services.DBObjectServices
 {
     /// <summary>
     /// Тесты <see cref="SaleService"/>
     /// </summary>
-    public class SaleServiceTests : BaseServiceTests<AddSaleModel, SaleModel, Sale, SaleService>
+    public class SaleServiceTests : DBObjectServiceBaseTests<AddSaleModel, SaleModel, Sale, SaleService>
     {
         /// <summary>
         /// Конструктор
