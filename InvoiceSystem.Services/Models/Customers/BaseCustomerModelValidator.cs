@@ -47,5 +47,6 @@ namespace InvoiceSystem.Services.Models.Customers
                 .Length(Cnst.MinLen, Cnst.MaxAddressLen)
                 ;
         }
+
     }
 }

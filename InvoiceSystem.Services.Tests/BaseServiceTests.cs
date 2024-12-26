@@ -3,6 +3,7 @@ using FluentAssertions;
 using InvoiceSystem.Common;
 using InvoiceSystem.Database;
 using InvoiceSystem.Database.Contracts.ModelInterfaces;
+using InvoiceSystem.Exceptions;
 using InvoiceSystem.Models;
 using InvoiceSystem.Services.Contracts;
 using InvoiceSystem.Services.Models.Customers;
@@ -22,15 +23,22 @@ namespace InvoiceSystem.Services.Tests
         where TAddObjectModel : class, new()
         where TObjectService : IDBobjectService<TAddObjectModel, TObjectModel, TObject>
     {
-        private readonly InvcSysDBContext dBContext;
-        private readonly CancellationToken cancellationToken;
-        private readonly IDateTimeOffsetProvider dateTime;
-        private readonly TObjectService service;
-
         /// <summary>
-        /// Конструктор сервиса
+        /// Контекст БД
         /// </summary>
-        protected abstract TObjectService Service();
+        readonly protected InvcSysDBContext dBContext;
+        /// <summary>
+        /// Дата и время
+        /// </summary>
+        readonly protected IDateTimeOffsetProvider dateTime;
+        /// <summary>
+        /// Маппер
+        /// </summary>
+        readonly protected IMapper mapper;
+
+        private readonly CancellationToken cancellationToken;
+        private readonly TObjectService service;
+        private readonly DbSet<TObject> dbSet;
 
         /// <summary>
         /// Конструктор
@@ -41,7 +49,7 @@ namespace InvoiceSystem.Services.Tests
             cancellationToken = fixture.CancellationToken;
             dateTime = fixture.DateTimeMock;
 
-            var mapper = new Mapper(
+            mapper = new Mapper(
                 new MapperConfiguration(x =>
                 {
                     x.CreateMap<TObject, TObjectModel>(MemberList.Destination);
@@ -49,7 +57,40 @@ namespace InvoiceSystem.Services.Tests
                 }));
 
             service = Service();
+            dbSet = DBSet();
+            ClearDbSet();
         }
+
+        #region abstract constructors
+
+        /// <summary>
+        /// Конструктор сервиса
+        /// </summary>
+        protected abstract TObjectService Service();
+
+        /// <summary>
+        /// Конструктор AddObjectModel
+        /// </summary>
+        protected abstract TAddObjectModel NewAddObjectModel();
+
+        /// <summary>
+        /// Конструктор ObjectModel
+        /// </summary>
+        protected abstract TObjectModel NewObjectModel();
+
+        /// <summary>
+        /// Конструктор DBObject
+        /// </summary>
+        protected abstract TObject NewDBObject();
+
+        /// <summary>
+        /// Выдаёт нужную таблицу БД
+        /// </summary>
+        protected abstract DbSet<TObject> DBSet();
+
+        #endregion
+
+        #region read
 
         /// <summary>
         /// Получение всех ничего не выдаёт
@@ -72,11 +113,9 @@ namespace InvoiceSystem.Services.Tests
         public async Task GetAllShouldReturn3Items()
         {
             // Arrange
-            dBContext.Set<TObject>().AddRange(
-                NewTObject(),
-                NewTObject(),
-                NewTObject()
-                );
+            await service.Add(NewAddObjectModel(), cancellationToken);
+            await service.Add(NewAddObjectModel(), cancellationToken);
+            await service.Add(NewAddObjectModel(), cancellationToken);
 
             // Act
             var result = await service.GetAll(cancellationToken);
@@ -91,17 +130,19 @@ namespace InvoiceSystem.Services.Tests
         /// Получение по ID не находит
         /// </summary>
         [Fact]
-        public async Task GetByIdShouldReturnNull()
+        public async Task GetByIdShouldThrow()
         {
             // Arrange
-            dBContext.Set<TObject>().AddRange(NewTObject(), NewTObject());
+            var model = NewAddObjectModel();
+            var modelId = await service.Add(model, cancellationToken);
+            await service.Add(NewAddObjectModel(), cancellationToken);
 
             // Act
-            var result = await service.GetById(Guid.NewGuid(), cancellationToken);
+            Task act() => service.GetById(Guid.NewGuid(), cancellationToken);
 
             // Assert
-            result.Should()
-                .BeNull();
+            var exception = Assert.ThrowsAsync<NotFoundException>(act);
+            exception.Should().NotBeNull();
         }
 
         /// <summary>
@@ -111,17 +152,22 @@ namespace InvoiceSystem.Services.Tests
         public async Task GetByIdShouldWork()
         {
             // Arrange
-            var model = NewTObject();
-            dBContext.Set<TObject>().AddRange(model, NewTObject());
+            var model = NewAddObjectModel();
+            var modelId = await service.Add(model, cancellationToken);
+            await service.Add(NewAddObjectModel(), cancellationToken);
 
             // Act
-            var result = await service.GetById(model.Id, cancellationToken);
+            var result = await service.GetById(modelId, cancellationToken);
 
             // Assert
             result.Should()
                 .NotBeNull()
                 .And.BeEquivalentTo(model);
         }
+
+        #endregion
+
+        #region add upd del
 
         /// <summary>
         /// Удаление работает
@@ -130,17 +176,18 @@ namespace InvoiceSystem.Services.Tests
         public async Task DeleteShouldWork()
         {
             // Arrange
-            var model = NewTObject();
-            dBContext.Set<TObject>().AddRange(model, NewTObject());
+            var model = NewAddObjectModel();
+            var modelId = await service.Add(model, cancellationToken);
+            await service.Add(NewAddObjectModel(), cancellationToken);
 
             // Act
-            await service.Delete(model.Id, cancellationToken);
+            await service.Delete(modelId, cancellationToken);
             var result = await service.GetAll(cancellationToken);
 
             // Assert
             result.Should()
-                 .NotBeEmpty()
-                 .And.HaveCount(2);
+                .NotBeEmpty()
+                .And.HaveCount(1);
         }
 
         /// <summary>
@@ -150,19 +197,17 @@ namespace InvoiceSystem.Services.Tests
         public async Task AddShouldWork()
         {
             // Arrange
-            var model = new TAddObjectModel();
+            var model = NewAddObjectModel();
 
             // Act
             var result = await service.Add(model, cancellationToken);
 
             // Assert
             result.Should().NotBe(Guid.Empty);
-            var item = await dBContext.Set<TObject>()
-                .FirstOrDefaultAsync(x => x.Id == result, cancellationToken);
+            var item = await dbSet.FirstOrDefaultAsync(x => x.Id == result, cancellationToken);
             item.Should()
                 .NotBeNull()
                 .And.BeEquivalentTo(model);
-
         }
 
         /// <summary>
@@ -172,11 +217,29 @@ namespace InvoiceSystem.Services.Tests
         public async Task EditShouldWork()
         {
             // Arrange
+            var entity = NewAddObjectModel();
+            var entityId = await service.Add(entity, cancellationToken);
+
+            var model = NewObjectModel();
+            model.Id = entityId;
+
+            // Act
+            await service.Edit(model, cancellationToken);
+
+            // Assert
+            var item = await dbSet.FirstOrDefaultAsync(x => x.Id == entityId, cancellationToken);
+            item.Should()
+                .NotBeNull()
+                .And.BeEquivalentTo(model)
+                .And.NotBeEquivalentTo(entity);
         }
 
-        private TObject NewTObject()
+        #endregion
+
+        private void ClearDbSet()
         {
-            return new TObject() { Id = new Guid(), CreatedDate = dateTime.UtcNow };
+            dbSet.RemoveRange(dbSet);
+            dBContext.SaveChanges();
         }
     }
 }
