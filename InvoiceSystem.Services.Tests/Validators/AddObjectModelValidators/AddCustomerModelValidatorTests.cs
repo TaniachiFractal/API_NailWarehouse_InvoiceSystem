@@ -34,7 +34,7 @@ namespace InvoiceSystem.Services.Tests.Validators.AddObjectModelValidators
         public async Task ShouldHaveErrorForINNExistsAsync()
         {
             // Arrange
-            var inn = Cnst.NewINN();
+            var inn = Common.Com.NewINN();
 
             dBContext.Customers.Add(TestEntityProvider.Shared.Create<Customer>(x => x.INN = inn));
             dBContext.SaveChanges();

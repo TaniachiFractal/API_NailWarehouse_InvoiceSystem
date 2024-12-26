@@ -1,9 +1,9 @@
 ﻿namespace InvoiceSystem.Common
 {
     /// <summary>
-    /// Общие константы
+    /// Общие константы и методы
     /// </summary>
-    public static class Cnst
+    public static class Com
     {
         /// <summary>
         /// Минимальная длина строки
@@ -34,8 +34,12 @@
         /// Сгенерировать ИНН
         /// </summary>
         public static string NewINN()
-        {
-            return new Random().NextInt64(999999999999).ToString("D12");
-        }
+            => new Random().NextInt64(999999999999).ToString("D12");
+
+        /// <summary>
+        /// Сгенерировать новую строку
+        /// </summary>
+        public static string NewString(string startPiece)
+            => $"{startPiece}{Guid.NewGuid():N}";
     }
 }

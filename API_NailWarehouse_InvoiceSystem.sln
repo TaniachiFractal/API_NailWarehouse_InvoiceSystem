@@ -6,7 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{04F8192C-B211-4B52-821A-9AEC6EEEB51A}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		FetchAllAsSQL.html = FetchAllAsSQL.html
 		InvoicePhoto.png = InvoicePhoto.png
 		README.md = README.md
 	EndProjectSection
@@ -48,6 +47,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoiceSystem.TestsBase", "InvoiceSystem.TestsBase\InvoiceSystem.TestsBase.csproj", "{5F691A63-7F6D-4FAC-AD7E-43D76E9A39CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoiceSystem.Services.Tests", "InvoiceSystem.Services.Tests\InvoiceSystem.Services.Tests.csproj", "{D6BFBAA4-07AA-4C88-9DA4-FDF3AABF6AF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvoiceSystem.Repositories.Tests", "InvoiceSystem.Repositories.Tests\InvoiceSystem.Repositories.Tests.csproj", "{A9ED8E4D-518F-4F45-89A2-E194B1B5CE32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +112,10 @@ Global
 		{D6BFBAA4-07AA-4C88-9DA4-FDF3AABF6AF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6BFBAA4-07AA-4C88-9DA4-FDF3AABF6AF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6BFBAA4-07AA-4C88-9DA4-FDF3AABF6AF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9ED8E4D-518F-4F45-89A2-E194B1B5CE32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9ED8E4D-518F-4F45-89A2-E194B1B5CE32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9ED8E4D-518F-4F45-89A2-E194B1B5CE32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9ED8E4D-518F-4F45-89A2-E194B1B5CE32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,5 +133,6 @@ Global
 		{8E97A255-81AD-4FE7-87E4-38A4117E771C} = {0685752D-080F-48FA-AF25-B7D731DF0BAD}
 		{5F691A63-7F6D-4FAC-AD7E-43D76E9A39CA} = {928E44C5-BB68-4489-BBD4-2A93F1840EF9}
 		{D6BFBAA4-07AA-4C88-9DA4-FDF3AABF6AF5} = {928E44C5-BB68-4489-BBD4-2A93F1840EF9}
+		{A9ED8E4D-518F-4F45-89A2-E194B1B5CE32} = {928E44C5-BB68-4489-BBD4-2A93F1840EF9}
 	EndGlobalSection
 EndGlobal

@@ -105,10 +105,10 @@ namespace InvoiceSystem.Services.Tests
         }
 
         /// <summary>
-        /// Получение всех выдаёт 3 элемента
+        /// Получение всех выдаёт 2 элемента
         /// </summary>
         [Fact]
-        public async Task GetAllShouldReturn3Items()
+        public async Task GetAllShouldReturn2Items()
         {
             // Arrange
             await service.Add(NewAddObjectModel(), cancellationToken);

@@ -39,7 +39,7 @@ namespace InvoiceSystem.Api
 
             builder.Services.AddDbContext<InvcSysDBContext>(c =>
             {
-                c.UseSqlServer(Cnst.DBConString);
+                c.UseSqlServer(Common.Com.DBConString);
             });
 
             builder.Services.AddScoped<IReader>(c => c.GetRequiredService<InvcSysDBContext>());

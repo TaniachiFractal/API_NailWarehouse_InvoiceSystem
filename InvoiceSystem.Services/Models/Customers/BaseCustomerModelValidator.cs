@@ -25,7 +25,7 @@ namespace InvoiceSystem.Services.Models.Customers
             RuleFor(x => x.INN)
                .NotNull()
                .NotEmpty()
-               .Length(Cnst.INNLen)
+               .Length(Com.INNLen)
 
                .Must(x => long.TryParse(x, out var val) && val > -1)
                .WithMessage($"ИНН должен содержать только цифры");
@@ -36,7 +36,7 @@ namespace InvoiceSystem.Services.Models.Customers
             RuleFor(x => x.Name)
                 .NotNull()
                 .NotEmpty()
-                .Length(Cnst.MinLen, Cnst.MaxNameLen);
+                .Length(Com.MinLen, Com.MaxNameLen);
         }
 
         private void RuleForAddress()
@@ -44,7 +44,7 @@ namespace InvoiceSystem.Services.Models.Customers
             RuleFor(x => x.Address)
                 .NotNull()
                 .NotEmpty()
-                .Length(Cnst.MinLen, Cnst.MaxAddressLen)
+                .Length(Com.MinLen, Com.MaxAddressLen)
                 ;
         }
 

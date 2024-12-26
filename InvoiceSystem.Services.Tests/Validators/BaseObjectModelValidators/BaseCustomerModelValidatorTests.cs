@@ -103,7 +103,7 @@ namespace InvoiceSystem.Services.Tests.Validators.BaseObjectModelValidators
         public async Task ShouldAcceptINNAsync()
         {
             // Arrange
-            var model = new TModel() { INN = Cnst.NewINN() };
+            var model = new TModel() { INN = Common.Com.NewINN() };
 
             // Act
             var result = await validator.TestValidateAsync(model);

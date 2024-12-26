@@ -14,5 +14,10 @@
         /// Время сейчас на нулевом часовом поясе (Лондон)
         /// </summary>
         DateTimeOffset UtcNow { get; }
+
+        /// <summary>
+        /// Случайное время
+        /// </summary>
+        DateTimeOffset Random { get; }
     }
 }

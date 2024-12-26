@@ -22,7 +22,7 @@ namespace InvoiceSystem.Models.Configuration
 
             builder.Property(x => x.Name)
                 .IsRequired()
-                .HasMaxLength(Cnst.MaxNameLen)
+                .HasMaxLength(Common.Com.MaxNameLen)
                 ;
 
             builder.HasIndex(x => x.Name)

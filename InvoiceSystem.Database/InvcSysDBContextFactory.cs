@@ -12,7 +12,7 @@ namespace InvoiceSystem.Database
         InvcSysDBContext IDesignTimeDbContextFactory<InvcSysDBContext>.CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<InvcSysDBContext>();
-            optionsBuilder.UseSqlServer(Cnst.DBConString);
+            optionsBuilder.UseSqlServer(Common.Com.DBConString);
             return new InvcSysDBContext(optionsBuilder.Options);
         }
     }

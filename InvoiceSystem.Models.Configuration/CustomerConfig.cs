@@ -20,7 +20,7 @@ namespace InvoiceSystem.Models.Configuration
 
             builder.Property(x => x.Name)
                 .IsRequired()
-                .HasMaxLength(Cnst.MaxNameLen)
+                .HasMaxLength(Common.Com.MaxNameLen)
                 ;
 
             builder.HasIndex(x => x.Name)
@@ -34,7 +34,7 @@ namespace InvoiceSystem.Models.Configuration
 
             builder.Property(x => x.INN)
                 .IsRequired()
-                .HasMaxLength(Cnst.INNLen)
+                .HasMaxLength(Com.INNLen)
                 .IsFixedLength()
                 ;
 
@@ -50,7 +50,7 @@ namespace InvoiceSystem.Models.Configuration
 
             builder.Property(x => x.Address)
                 .IsRequired()
-                .HasMaxLength(Cnst.MaxAddressLen)
+                .HasMaxLength(Common.Com.MaxAddressLen)
                 ;
 
             #endregion
