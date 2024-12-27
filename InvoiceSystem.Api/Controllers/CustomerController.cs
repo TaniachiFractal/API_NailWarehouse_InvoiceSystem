@@ -2,6 +2,7 @@
 using InvoiceSystem.Api.Models.Customers;
 using InvoiceSystem.Api.ResponseAttributes;
 using InvoiceSystem.Models.Customers;
+using InvoiceSystem.Services.Contracts;
 using InvoiceSystem.Services.Contracts.Models.Customers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,14 @@ namespace InvoiceSystem.Api.Controllers
         /// Конструктор
         /// </summary>
         public CustomerController(IMapper mapper, ICustomerService service, ICustomerValidationService validationService, ILogger<CustomerController> logger)
+            : base(mapper, service, validationService, logger)
+        {
+        }
+
+        /// <summary>
+        /// Конструктор с логгером без привязки к типу и сервисами без конкретных интерфейсов
+        /// </summary>
+        public CustomerController(IMapper mapper, IDBobjectService<AddCustomerModel, CustomerModel, Customer> service, IDBObjectValidationService validationService, ILogger logger)
             : base(mapper, service, validationService, logger)
         {
         }

@@ -65,7 +65,7 @@ namespace InvoiceSystem.Services.Tests
             ClearDbSet();
         }
 
-        #region abstract constructors
+        #region abstract
 
         /// <summary>
         /// Конструктор сервиса

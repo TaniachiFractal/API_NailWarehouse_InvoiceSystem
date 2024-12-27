@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\InvoiceSystem.Api\InvoiceSystem.Api.csproj" />
     <ProjectReference Include="..\InvoiceSystem.Repositories\InvoiceSystem.Repositories.csproj" />
     <ProjectReference Include="..\InvoiceSystem.Services\InvoiceSystem.Services.csproj" />
     <ProjectReference Include="..\InvoiceSystem.TestsBase\InvoiceSystem.TestsBase.csproj" />
