@@ -130,6 +130,7 @@ namespace InvoiceSystem.Services.Tests.Services
             product0.Price = 4;
 
             var sale0 = TestEntityProvider.Shared.Create<Sale>();
+            sale0.SoldCount = 4;
 
             sale0.InvoiceId = invoice.Id;
             sale0.ProductId = product0.Id;
@@ -141,6 +142,7 @@ namespace InvoiceSystem.Services.Tests.Services
             product1.Price = 7;
 
             var sale1 = TestEntityProvider.Shared.Create<Sale>();
+            sale0.SoldCount = 3;
 
             sale1.InvoiceId = invoice.Id;
             sale1.ProductId = product1.Id;
@@ -155,7 +157,7 @@ namespace InvoiceSystem.Services.Tests.Services
 
             dBContext.SaveChanges();
 
-            var sumNoTax = product0.Price + product1.Price;
+            var sumNoTax = product0.Price * sale0.SoldCount + product1.Price * sale1.SoldCount;
             var sumWTax = sumNoTax * (1 + Tax);
 
             var fullInvoiceInfo = new FullInvoiceInfoModel()
