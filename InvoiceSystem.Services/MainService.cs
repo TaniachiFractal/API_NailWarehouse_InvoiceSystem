@@ -91,7 +91,7 @@ namespace InvoiceSystem.Services
                     Price = product.Price,
                     Summary = sale.SoldCount * product.Price,
                 });
-                sumNoTax += product.Price;
+                sumNoTax += product.Price * sale.SoldCount;
             }
 
             var sumWTax = sumNoTax * (1 + Tax);
