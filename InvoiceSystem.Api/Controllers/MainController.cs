@@ -21,7 +21,18 @@ namespace InvoiceSystem.Api.Controllers
         /// <summary>
         /// Конструктор
         /// </summary>
+        [ActivatorUtilitiesConstructor]
         public MainController(IMainService mainService, IMapper mapper, ILogger<MainController> logger)
+        {
+            this.mainService = mainService;
+            this.mapper = mapper;
+            this.logger = logger;
+        }
+
+        /// <summary>
+        /// Конструктор без типизированного логгера
+        /// </summary>
+        public MainController(IMainService mainService, IMapper mapper, ILogger logger)
         {
             this.mainService = mainService;
             this.mapper = mapper;

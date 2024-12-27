@@ -16,6 +16,7 @@ namespace InvoiceSystem.Api.Controllers
         /// <summary>
         /// Конструктор
         /// </summary>
+        [ActivatorUtilitiesConstructor]
         public CustomerController(IMapper mapper, ICustomerService service, ICustomerValidationService validationService, ILogger<CustomerController> logger)
             : base(mapper, service, validationService, logger)
         {

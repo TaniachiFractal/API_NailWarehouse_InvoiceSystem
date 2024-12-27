@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using InvoiceSystem.Api.Models.Sales;
 using InvoiceSystem.Api.ResponseAttributes;
-using InvoiceSystem.Models.Products;
 using InvoiceSystem.Models.Sales;
 using InvoiceSystem.Services.Contracts;
 using InvoiceSystem.Services.Contracts.Models.Sales;
@@ -17,6 +16,7 @@ namespace InvoiceSystem.Api.Controllers
         /// <summary>
         /// Конструтор
         /// </summary>
+        [ActivatorUtilitiesConstructor]
         public SaleController(IMapper mapper, ISaleService service, ISaleValidationService validationService, ILogger<SaleController> logger)
             : base(mapper, service, validationService, logger)
         {

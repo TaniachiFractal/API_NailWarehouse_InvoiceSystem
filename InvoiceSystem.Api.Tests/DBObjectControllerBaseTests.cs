@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using FluentAssertions;
-using InvoiceSystem.Api.ErrorModels;
-using InvoiceSystem.Api.Models.Customers;
 using InvoiceSystem.Common;
 using InvoiceSystem.Database;
 using InvoiceSystem.Database.Contracts.ModelInterfaces;
@@ -9,7 +7,6 @@ using InvoiceSystem.Exceptions;
 using InvoiceSystem.Models;
 using InvoiceSystem.Services.Contracts;
 using InvoiceSystem.TestsBase;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -76,6 +73,9 @@ namespace InvoiceSystem.Api.Tests
 
                     x.CreateMap<TObjectModel, TApiModel>(MemberList.Destination);
                     x.CreateMap<TAddApiModel, TAddObjectModel>(MemberList.Destination);
+
+                    x.CreateMap<TAddApiModel, TObjectModel>(MemberList.Destination);
+
                 }));
 
             dbSet = DBSet();
@@ -134,6 +134,8 @@ namespace InvoiceSystem.Api.Tests
 
         #endregion
 
+        #region read
+
         /// <summary>
         /// Получение всех ничего не возвращает
         /// </summary>
@@ -145,21 +147,21 @@ namespace InvoiceSystem.Api.Tests
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnValue = Assert.IsAssignableFrom<IReadOnlyCollection<CustomerApiModel>>(okResult.Value);
+            var returnValue = Assert.IsAssignableFrom<IReadOnlyCollection<TApiModel>>(okResult.Value);
             returnValue.Should().BeEmpty();
         }
 
         /// <summary>
-        /// Получение всех не возвращает удалённые
+        /// Получение всех не выдаёт удалённые объекты
         /// </summary>
         [Fact]
         public async Task GetAllReturnsUndeleted()
         {
             // Arrange
             var deleted = NewDBObject();
-            deleted.DeletedDate = dateTime.UtcNow;
+            deleted.DeletedDate = DateTime.Now;
             var obj = NewDBObject();
-            dbSet.AddRange(obj, deleted);
+            dbSet.AddRange(deleted, obj);
             dBContext.SaveChanges();
 
             // Act
@@ -167,7 +169,7 @@ namespace InvoiceSystem.Api.Tests
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnValue = Assert.IsAssignableFrom<IReadOnlyCollection<CustomerApiModel>>(okResult.Value);
+            var returnValue = Assert.IsAssignableFrom<IReadOnlyCollection<TApiModel>>(okResult.Value);
             returnValue.Should()
                 .NotBeEmpty()
                 .And.HaveCount(1)
@@ -178,7 +180,7 @@ namespace InvoiceSystem.Api.Tests
         /// Получение по ID выдаёт ошибку не найдено
         /// </summary>
         [Fact]
-        public async Task GetByIdThrows()
+        public async Task GetByIdThrowsNotFound()
         {
             // Arrange
             var deleted = NewDBObject();
@@ -214,30 +216,166 @@ namespace InvoiceSystem.Api.Tests
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnValue = Assert.IsAssignableFrom<CustomerApiModel>(okResult.Value);
+            var returnValue = Assert.IsAssignableFrom<TApiModel>(okResult.Value);
             returnValue.Should().BeEquivalentTo(obj, opt => opt.Excluding(x => x.CreatedDate).Excluding(x => x.UpdatedDate).Excluding(x => x.DeletedDate));
         }
 
+        #endregion
+
+        #region write
+
         /// <summary>
-        /// Добавление выдаёт ошибку 
+        /// Добавление выдаёт ошибку - неверные поля
         /// </summary>
         [Fact]
-        public async Task AddThrows()
+        public async Task AddThrowsWrongFields()
         {
             // Arrange
             var obj = WrongFields();
 
-            await controller.Add(obj, cancellationToken);
             // Act
             try
             {
+                await controller.Add(obj, cancellationToken);
             }
+            // Assert
             catch (Exception ex)
             {
-                var a = ex.GetType();
                 Assert.True(ex.GetType() == typeof(ValidationErrorException));
             }
         }
+
+        /// <summary>
+        /// Добавление работает
+        /// </summary>
+        [Fact]
+        public async Task AddWorks()
+        {
+            // Arrange
+            var oldCount = dbSet.Count();
+            var obj = CorrectFields();
+
+            // Act
+            var result = await controller.Add(obj, cancellationToken);
+
+            // Assert
+            Assert.IsType<NoContentResult>(result);
+            Assert.True(dbSet.Count() == oldCount + 1);
+        }
+
+        /// <summary>
+        /// Изменение выдаёт ошибку - неверные поля
+        /// </summary>
+        [Fact]
+        public async Task EditThrowsWrongFields()
+        {
+            // Arrange
+            var obj = NewDBObject();
+            dbSet.Add(obj);
+            dBContext.SaveChanges();
+
+            var model = WrongFields();
+
+            // Act
+            try
+            {
+                await controller.Edit(obj.Id, model, cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                Assert.True(ex.GetType() == typeof(ValidationErrorException));
+            }
+        }
+
+        /// <summary>
+        /// Изменение выдаёт ошибку - объект не найден
+        /// </summary>
+        [Fact]
+        public async Task EditThrowsNotFound()
+        {
+            // Arrange
+            var obj = NewDBObject();
+            obj.DeletedDate = dateTime.UtcNow;
+            dbSet.Add(obj);
+            dBContext.SaveChanges();
+
+            var model = CorrectFields();
+
+            // Act
+            try
+            {
+                await controller.Edit(obj.Id, model, cancellationToken);
+            }
+            // Assert
+            catch (Exception ex)
+            {
+                Assert.True(ex.GetType() == typeof(NotFoundException));
+            }
+        }
+
+        /// <summary>
+        /// Изменение работает
+        /// </summary>
+        [Fact]
+        public async Task EditWorks()
+        {
+            // Arrange
+            var obj = NewAddObjectModel();
+            var objId = await service.Add(obj, cancellationToken);
+            dBContext.SaveChanges();
+
+            var model = CorrectFields();
+
+            // Act
+            var result = await controller.Edit(objId, model, cancellationToken);
+
+            // Assert
+            Assert.IsType<NoContentResult>(result);
+        }
+
+        /// <summary>
+        /// Удаление выдаёт ошибку - объект не найден
+        /// </summary>
+        [Fact]
+        public async Task DeleteThrowsNotFound()
+        {
+            // Arrange
+            var obj = NewDBObject();
+            obj.DeletedDate = dateTime.UtcNow;
+            dbSet.Add(obj);
+            dBContext.SaveChanges();
+
+            // Act
+            try
+            {
+                await controller.Delete(obj.Id, cancellationToken);
+            }
+            // Assert
+            catch (Exception ex)
+            {
+                Assert.True(ex.GetType() == typeof(NotFoundException));
+            }
+        }
+
+        /// <summary>
+        /// Удаление работает
+        /// </summary>
+        [Fact]
+        public async Task DeleteWorks()
+        {
+            // Arrange
+            var obj = NewAddObjectModel();
+            var objId = await service.Add(obj, cancellationToken);
+            dBContext.SaveChanges();
+
+            // Act
+            var result = await controller.Delete(objId, cancellationToken);
+
+            // Assert
+            Assert.IsType<NoContentResult>(result);
+        }
+
+        #endregion
 
         private void ClearDbSet()
         {

@@ -16,14 +16,11 @@ namespace InvoiceSystem.Api.Tests.Controllers
     /// </summary>
     public class CustomerControllerTests : DBObjectControllerBaseTests<AddCustomerApiModel, CustomerApiModel, AddCustomerModel, CustomerModel, Customer>
     {
-        private CustomerReadRepository customerReadRepository;
-
         /// <summary>
         /// Конструктор
         /// </summary>
         public CustomerControllerTests(DBTestsFixture fixture) : base(fixture)
         {
-            customerReadRepository = new CustomerReadRepository(dBContext);
         }
 
         /// <inheritdoc/>
@@ -64,13 +61,14 @@ namespace InvoiceSystem.Api.Tests.Controllers
         protected override IDBobjectService<AddCustomerModel, CustomerModel, Customer> Service()
             => new CustomerService(
                 mapper,
-                customerReadRepository,
+                new CustomerReadRepository(dBContext),
                 new CustomerWriteRepository(dBContext, dateTime, logger),
                 dBContext
                 );
 
         /// <inheritdoc/>
         protected override IDBObjectValidationService ValidationService()
-            => new CustomerValidationService(customerReadRepository);
+            => new CustomerValidationService(new CustomerReadRepository(dBContext));
+
     }
 }

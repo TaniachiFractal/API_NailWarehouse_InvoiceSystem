@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using InvoiceSystem.Api.Models.Products;
 using InvoiceSystem.Api.ResponseAttributes;
-using InvoiceSystem.Models.Invoices;
 using InvoiceSystem.Models.Products;
 using InvoiceSystem.Services.Contracts;
 using InvoiceSystem.Services.Contracts.Models.Products;
@@ -17,6 +16,7 @@ namespace InvoiceSystem.Api.Controllers
         /// <summary>
         /// Конструтор
         /// </summary>
+        [ActivatorUtilitiesConstructor]
         public ProductController(IMapper mapper, IProductService service, IProductValidationService validationService, ILogger<ProductController> logger)
             : base(mapper, service, validationService, logger)
         {
