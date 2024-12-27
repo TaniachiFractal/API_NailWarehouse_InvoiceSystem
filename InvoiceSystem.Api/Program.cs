@@ -22,6 +22,8 @@ using InvoiceSystem.Services.Models.Invoices;
 using InvoiceSystem.Services.Models.Products;
 using InvoiceSystem.Services.Models.Sales;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Serilog.Extensions.Logging;
 
 namespace InvoiceSystem.Api
 {
@@ -35,11 +37,26 @@ namespace InvoiceSystem.Api
                 c.Filters.Add<ExceptionFilter>();
             });
 
+            #region serilog
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .WriteTo.Console()
+                .CreateLogger();
+
+            var logger = new SerilogLoggerFactory(Log.Logger)
+                .CreateLogger("NailWarehouse");
+
+            builder.Services.AddSerilog();
+            builder.Services.AddLogging(configure => configure.AddConsole());
+
+            #endregion
+
             #region DB
 
             builder.Services.AddDbContext<InvcSysDBContext>(c =>
             {
-                c.UseSqlServer(Common.Com.DBConString);
+                c.UseSqlServer(Com.DBConString);
             });
 
             builder.Services.AddScoped<IReader>(c => c.GetRequiredService<InvcSysDBContext>());

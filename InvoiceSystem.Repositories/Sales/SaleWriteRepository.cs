@@ -2,6 +2,7 @@
 using InvoiceSystem.Database.Contracts.DBInterfaces;
 using InvoiceSystem.Models.Sales;
 using InvoiceSystem.Repositories.Contracts.Sales;
+using Microsoft.Extensions.Logging;
 
 namespace InvoiceSystem.Repositories.Sales
 {
@@ -9,7 +10,15 @@ namespace InvoiceSystem.Repositories.Sales
     public class SaleWriteRepository : BaseWriteRepository<Sale>, ISaleWriteRepository
     {
         /// <inheritdoc/>
-        public SaleWriteRepository(IWriter writer, IDateTimeOffsetProvider dateTimeOffsetProvider) : base(writer, dateTimeOffsetProvider)
+        public SaleWriteRepository(IWriter writer, IDateTimeOffsetProvider dateTimeOffsetProvider, ILogger<SaleWriteRepository> logger)
+            : base(writer, dateTimeOffsetProvider, logger)
+        {
+        }
+
+        /// <summary>
+        /// Конструктор без специфичного логгера
+        /// </summary>
+        public SaleWriteRepository(IWriter writer, IDateTimeOffsetProvider dateTimeOffsetProvider, ILogger logger) : base(writer, dateTimeOffsetProvider, logger)
         {
         }
     }

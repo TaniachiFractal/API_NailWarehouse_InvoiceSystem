@@ -5,7 +5,6 @@ using InvoiceSystem.Models;
 using InvoiceSystem.Models.Customers;
 using InvoiceSystem.Models.Invoices;
 using InvoiceSystem.Models.Products;
-using InvoiceSystem.Models.Sales;
 using InvoiceSystem.Repositories.Contracts.Customers;
 using InvoiceSystem.Repositories.Contracts.Invoices;
 using InvoiceSystem.Repositories.Contracts.Products;

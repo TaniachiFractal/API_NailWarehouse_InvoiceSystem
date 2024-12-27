@@ -55,9 +55,9 @@ namespace InvoiceSystem.Database
         }
 
         IQueryable<T> IReader.Read<T>()
-            => base.Set<T>()
-            .AsQueryable()
-            .AsNoTracking();
+        => base.Set<T>()
+                .AsQueryable()
+                .AsNoTracking();
 
         void IWriter.Add<T>(T entity)
         => base.Entry(entity).State = EntityState.Added;

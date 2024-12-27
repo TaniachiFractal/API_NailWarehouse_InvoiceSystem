@@ -1,5 +1,4 @@
 ﻿using InvoiceSystem.Models.Products;
-using InvoiceSystem.Repositories.Contracts.Products;
 
 namespace InvoiceSystem.Services.Models.Products
 {

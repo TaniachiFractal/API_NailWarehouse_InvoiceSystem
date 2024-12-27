@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using FluentValidation.TestHelper;
-using InvoiceSystem.Models.Products;
 using InvoiceSystem.Models.Sales;
 using InvoiceSystem.Repositories.Contracts.Invoices;
 using InvoiceSystem.Repositories.Contracts.Products;

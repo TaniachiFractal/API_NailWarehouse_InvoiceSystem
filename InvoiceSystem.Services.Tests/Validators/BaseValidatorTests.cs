@@ -15,10 +15,15 @@ namespace InvoiceSystem.Services.Tests.Validators
         /// Контекст БД
         /// </summary>
         readonly protected InvcSysDBContext dBContext;
+
+#nullable enable
+
         /// <summary>
         /// Валидатор
         /// </summary>
         protected AbstractValidator<TModel>? validator;
+
+#nullable disable
 
         private readonly CancellationToken cancellationToken;
 

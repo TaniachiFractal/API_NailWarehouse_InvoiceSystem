@@ -7,6 +7,7 @@ using InvoiceSystem.Exceptions;
 using InvoiceSystem.Models;
 using InvoiceSystem.TestsBase;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Xunit;
 
 namespace InvoiceSystem.Services.Tests
@@ -33,6 +34,10 @@ namespace InvoiceSystem.Services.Tests
         /// Маппер
         /// </summary>
         readonly protected IMapper mapper;
+        /// <summary>
+        /// Логгер
+        /// </summary>
+        readonly protected ILogger logger;
 
         private readonly CancellationToken cancellationToken;
         private readonly TObjectService service;
@@ -46,6 +51,7 @@ namespace InvoiceSystem.Services.Tests
             dBContext = fixture.DbContext;
             cancellationToken = fixture.CancellationToken;
             dateTime = fixture.DateTimeMock;
+            logger = fixture.Logger;
 
             mapper = new Mapper(
                 new MapperConfiguration(x =>

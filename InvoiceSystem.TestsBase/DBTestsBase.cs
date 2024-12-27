@@ -1,6 +1,7 @@
 ﻿using InvoiceSystem.Common;
 using InvoiceSystem.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace InvoiceSystem.TestsBase
@@ -13,6 +14,7 @@ namespace InvoiceSystem.TestsBase
         private readonly InvcSysDBContext context;
         private readonly CancellationTokenSource cancellationTokenSource;
         private readonly Mock<IDateTimeOffsetProvider> dateTimeMock;
+        private readonly Mock<ILogger> loggerMock;
 
         /// <summary>
         /// Контекст БД
@@ -30,6 +32,11 @@ namespace InvoiceSystem.TestsBase
         public IDateTimeOffsetProvider DateTimeMock => dateTimeMock.Object;
 
         /// <summary>
+        /// Заглушка логгера
+        /// </summary>
+        public ILogger Logger => loggerMock.Object;
+
+        /// <summary>
         /// Конструктор
         /// </summary>
         protected DBTestsBase()
@@ -38,6 +45,14 @@ namespace InvoiceSystem.TestsBase
             var opt = new DbContextOptionsBuilder<InvcSysDBContext>()
                 .UseInMemoryDatabase($"AppCon{Guid.NewGuid()}")
                 .Options;
+
+            loggerMock = new Mock<ILogger>();
+            loggerMock.Setup(x => x.Log(LogLevel.Information,
+                It.IsAny<EventId>(),
+                It.IsAny<It.IsAnyType>(),
+                null,
+                It.IsAny<Func<It.IsAnyType, Exception, string>>()
+                ));
 
             context = new InvcSysDBContext(opt);
             dateTimeMock = new Mock<IDateTimeOffsetProvider>();

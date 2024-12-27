@@ -49,6 +49,6 @@ namespace InvoiceSystem.Repositories.Tests.WriteRepositories
 
         /// <inheritdoc/>
         protected override IWriteRepository<Product> Repository()
-            => new ProductWriteRepository(dBContext, dateTime);
+            => new ProductWriteRepository(dBContext, dateTime, logger);
     }
 }

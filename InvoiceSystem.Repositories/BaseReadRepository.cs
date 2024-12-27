@@ -28,12 +28,16 @@ namespace InvoiceSystem.Repositories
                     .OrderBy(x => x.CreatedDate)
                     .ToListAsync(cancellationToken);
 
+#nullable enable
+
         /// <inheritdoc/>
         public async Task<T?> GetById(Guid id, CancellationToken cancellationToken)
              => await reader.Read<T>()
                     .NotDeleted()
                     .WithId(id)
                     .FirstOrDefaultAsync(cancellationToken);
+
+#nullable disable
 
     }
 }

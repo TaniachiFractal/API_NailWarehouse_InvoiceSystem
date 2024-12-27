@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using InvoiceSystem.Api.Models;
 using InvoiceSystem.Api.ResponseAttributes;
+using InvoiceSystem.Common;
 using InvoiceSystem.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,14 +16,16 @@ namespace InvoiceSystem.Api.Controllers
     {
         private readonly IMainService mainService;
         private readonly IMapper mapper;
+        private readonly ILogger logger;
 
         /// <summary>
         /// Конструктор
         /// </summary>
-        public MainController(IMainService mainService, IMapper mapper)
+        public MainController(IMainService mainService, IMapper mapper, ILogger<MainController> logger)
         {
             this.mainService = mainService;
             this.mapper = mapper;
+            this.logger = logger;
         }
 
         /// <summary>
@@ -35,6 +38,7 @@ namespace InvoiceSystem.Api.Controllers
         {
             var item = await mainService.GetFullInvoiceInfo(InvoiceId, cancellationToken);
             var result = mapper.Map<FullInvoiceInfoApiModel>(item);
+            LogAnswer(result);
             return Ok(result);
         }
 
@@ -46,7 +50,11 @@ namespace InvoiceSystem.Api.Controllers
         public async Task<IActionResult> GetAllTablesAsSQLQueries(CancellationToken cancellationToken)
         {
             var result = await mainService.GetAllTablesAsSQLQueries(cancellationToken);
+            LogAnswer(result);
             return Ok(result);
         }
+
+        private void LogAnswer(object result)
+        => Com.LogControllerAnswer(logger, GetType(), result);
     }
 }

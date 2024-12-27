@@ -1,13 +1,10 @@
-﻿using System.Runtime.CompilerServices;
-using Ahatornn.TestGenerator;
-using FluentAssertions;
+﻿using FluentAssertions;
 using InvoiceSystem.Common;
 using InvoiceSystem.Database;
 using InvoiceSystem.Database.Contracts.Repositories;
 using InvoiceSystem.Models;
 using InvoiceSystem.TestsBase;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace InvoiceSystem.Repositories.Tests
@@ -19,18 +16,34 @@ namespace InvoiceSystem.Repositories.Tests
     public abstract class BaseReadRepositoryTests<TObject>
         where TObject : DBObject, new()
     {
+        #region fields
+
         /// <summary>
         /// Контекст БД
         /// </summary>
         readonly protected InvcSysDBContext dBContext;
+
         /// <summary>
         /// Дата и время
         /// </summary>
         readonly protected IDateTimeOffsetProvider dateTime;
 
-        private readonly CancellationToken cancellationToken;
-        private readonly IReadRepository<TObject> repository;
-        private readonly DbSet<TObject> dbSet;
+        /// <summary>
+        /// Токен отмены
+        /// </summary>
+        readonly protected CancellationToken cancellationToken;
+
+        /// <summary>
+        /// Репозиторий
+        /// </summary>
+        readonly protected IReadRepository<TObject> repository;
+
+        /// <summary>
+        /// Таблица БД
+        /// </summary>
+        readonly protected DbSet<TObject> dbSet;
+
+        #endregion
 
         /// <summary>
         /// Конструктор

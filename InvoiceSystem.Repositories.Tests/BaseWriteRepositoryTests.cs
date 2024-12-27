@@ -1,11 +1,11 @@
-﻿using System.Runtime.CompilerServices;
-using FluentAssertions;
+﻿using FluentAssertions;
 using InvoiceSystem.Common;
 using InvoiceSystem.Database;
 using InvoiceSystem.Database.Contracts.Repositories;
 using InvoiceSystem.Models;
 using InvoiceSystem.TestsBase;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Xunit;
 
 namespace InvoiceSystem.Repositories.Tests
@@ -27,6 +27,10 @@ namespace InvoiceSystem.Repositories.Tests
         /// Дата и время
         /// </summary>
         readonly protected IDateTimeOffsetProvider dateTime;
+        /// <summary>
+        /// Логгер
+        /// </summary>
+        readonly protected ILogger logger;
 
         private readonly CancellationToken cancellationToken;
         private readonly IWriteRepository<TObject> repository;
@@ -40,6 +44,7 @@ namespace InvoiceSystem.Repositories.Tests
             dBContext = fixture.DbContext;
             cancellationToken = fixture.CancellationToken;
             dateTime = fixture.DateTimeMock;
+            logger = fixture.Logger;
             repository = Repository();
             dbSet = DBSet();
             ClearDbSet();

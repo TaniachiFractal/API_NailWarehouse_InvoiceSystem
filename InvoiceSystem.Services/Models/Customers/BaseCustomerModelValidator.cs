@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using InvoiceSystem.Common;
-using InvoiceSystem.Models.Configuration;
 using InvoiceSystem.Models.Customers;
 
 namespace InvoiceSystem.Services.Models.Customers

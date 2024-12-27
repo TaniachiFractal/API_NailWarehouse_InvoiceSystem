@@ -15,8 +15,8 @@ namespace InvoiceSystem.Api.Controllers
         /// <summary>
         /// Конструтор
         /// </summary>
-        public SaleController(IMapper mapper, ISaleService service, ISaleValidationService validationService)
-            : base(mapper, service, validationService)
+        public SaleController(IMapper mapper, ISaleService service, ISaleValidationService validationService, ILogger<SaleController> logger)
+            : base(mapper, service, validationService, logger)
         {
         }
 

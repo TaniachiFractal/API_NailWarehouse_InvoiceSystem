@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using InvoiceSystem.Database.Contracts.ModelInterfaces;
 using InvoiceSystem.Exceptions;
 using InvoiceSystem.Services.Contracts;
 

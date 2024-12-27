@@ -51,6 +51,6 @@ namespace InvoiceSystem.Repositories.Tests.WriteRepositories
 
         /// <inheritdoc/>
         protected override IWriteRepository<Customer> Repository()
-            => new CustomerWriteRepository(dBContext, dateTime);
+            => new CustomerWriteRepository(dBContext, dateTime, logger);
     }
 }

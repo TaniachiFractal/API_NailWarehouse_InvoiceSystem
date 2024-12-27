@@ -1,7 +1,7 @@
 ﻿using InvoiceSystem.TestsBase;
 using Xunit;
 
-namespace InvoiceSystem.Services.Tests
+namespace InvoiceSystem.Api.Tests
 {
     /// <inheritdoc cref="ICollectionFixture{TFixture}"/>
     [CollectionDefinition(nameof(DBTestsCollection))]

@@ -1,4 +1,5 @@
 ﻿using InvoiceSystem.Api.ErrorModels;
+using InvoiceSystem.Common;
 using InvoiceSystem.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -10,6 +11,16 @@ namespace InvoiceSystem.Api.Infrastructure
     /// </summary>
     public class ExceptionFilter : IExceptionFilter
     {
+        private readonly ILogger logger;
+
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        public ExceptionFilter(ILogger<ExceptionFilter> logger)
+        {
+            this.logger = logger;
+        }
+
         void IExceptionFilter.OnException(ExceptionContext context)
         {
             if (context.Exception is InvcSysException exception)
@@ -22,7 +33,10 @@ namespace InvoiceSystem.Api.Infrastructure
                             Message = exception.Message,
                             ErrorCode = StatusCodes.Status404NotFound
                         }));
+
+                        LogHandledError(exception, context.Exception.Source);
                         break;
+
                     case ValidationErrorException validEx:
                         SetHandledException(context, new ObjectResult(new ValidationErrorModel
                         {
@@ -32,20 +46,28 @@ namespace InvoiceSystem.Api.Infrastructure
                         {
                             StatusCode = StatusCodes.Status406NotAcceptable
                         });
+
+                        LogHandledError(exception, context.Exception.Source);
                         break;
+
                     case OperationException:
                         SetHandledException(context, new ConflictObjectResult(new ErrorModel
                         {
                             Message = exception.Message,
                             ErrorCode = StatusCodes.Status409Conflict
                         }));
+
+                        LogHandledError(exception, context.Exception.Source);
                         break;
+
                     default:
                         SetHandledException(context, new BadRequestObjectResult(new ErrorModel
                         {
                             Message = exception.Message,
                             ErrorCode = StatusCodes.Status400BadRequest
                         }));
+
+                        LogHandledError(exception, context.Exception.Source);
                         break;
                 }
             }
@@ -55,6 +77,11 @@ namespace InvoiceSystem.Api.Infrastructure
         {
             context.Result = result;
             context.ExceptionHandled = true;
+        }
+
+        private void LogHandledError(Exception exception, string source)
+        {
+            Com.LogHandledError(logger, source, exception);
         }
     }
 }

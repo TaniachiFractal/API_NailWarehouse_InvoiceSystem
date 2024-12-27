@@ -3,6 +3,7 @@ using InvoiceSystem.Common;
 using InvoiceSystem.Database.Contracts.DBInterfaces;
 using InvoiceSystem.Database.Contracts.ModelInterfaces;
 using InvoiceSystem.Database.Contracts.Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace InvoiceSystem.Repositories
 {
@@ -13,14 +14,16 @@ namespace InvoiceSystem.Repositories
     {
         private readonly IWriter writer;
         private readonly IDateTimeOffsetProvider dateTimeOffsetProvider;
+        private readonly ILogger logger;
 
         /// <summary>
         /// Конструктор
         /// </summary>
-        protected BaseWriteRepository(IWriter writer, IDateTimeOffsetProvider dateTimeOffsetProvider)
+        protected BaseWriteRepository(IWriter writer, IDateTimeOffsetProvider dateTimeOffsetProvider, ILogger logger)
         {
             this.writer = writer;
             this.dateTimeOffsetProvider = dateTimeOffsetProvider;
+            this.logger = logger;
         }
 
         /// <inheritdoc/>
@@ -32,6 +35,8 @@ namespace InvoiceSystem.Repositories
             }
             AuditForCreate(entity);
             writer.Add(entity);
+
+            LogInfo(entity, "Added");
         }
 
         /// <inheritdoc/>
@@ -48,6 +53,8 @@ namespace InvoiceSystem.Repositories
             {
                 writer.Delete(entity);
             }
+
+            LogInfo(entity, "Deleted");
         }
 
         /// <inheritdoc/>
@@ -55,6 +62,8 @@ namespace InvoiceSystem.Repositories
         {
             AuditForUpdate(entity);
             writer.Update(entity);
+
+            LogInfo(entity, "Updated");
         }
 
         private void AuditForCreate([NotNull] T entity)
@@ -80,6 +89,11 @@ namespace InvoiceSystem.Repositories
             {
                 softDeleted.DeletedDate = dateTimeOffsetProvider.UtcNow;
             }
+        }
+
+        private void LogInfo(T entity, string action)
+        {
+            logger.LogInformation("@@@@ {ACTION} entity {ENTITY} with data {@DATA}", action, entity.GetType().Name, entity);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using InvoiceSystem.Common;
-using InvoiceSystem.Models.Products;
+﻿using InvoiceSystem.Models.Products;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

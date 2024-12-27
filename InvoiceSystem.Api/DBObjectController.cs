@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InvoiceSystem.Api.ResponseAttributes;
+using InvoiceSystem.Common;
 using InvoiceSystem.Database.Contracts.ModelInterfaces;
 using InvoiceSystem.Models;
 using InvoiceSystem.Services.Contracts;
@@ -20,6 +21,7 @@ namespace InvoiceSystem.Api
         private readonly IMapper mapper;
         private readonly IDBobjectService<TAddObjectModel, TObjectModel, TObject> service;
         private readonly IDBObjectValidationService validationService;
+        private readonly ILogger logger;
 
         /// <summary>
         /// Конструктор
@@ -27,11 +29,13 @@ namespace InvoiceSystem.Api
         public DBObjectController(
             IMapper mapper,
             IDBobjectService<TAddObjectModel, TObjectModel, TObject> service,
-            IDBObjectValidationService validationService)
+            IDBObjectValidationService validationService,
+            ILogger logger)
         {
             this.mapper = mapper;
             this.service = service;
             this.validationService = validationService;
+            this.logger = logger;
         }
 
         /// <summary>
@@ -43,6 +47,7 @@ namespace InvoiceSystem.Api
         {
             var item = await service.GetById(id, cancellationToken);
             var result = mapper.Map<TApiModel>(item);
+            LogAnswer(result);
             return Ok(result);
         }
 
@@ -54,6 +59,7 @@ namespace InvoiceSystem.Api
         {
             var items = await service.GetAll(cancellationToken);
             var result = mapper.Map<IReadOnlyCollection<TApiModel>>(items);
+            LogAnswer(result);
             return Ok(result);
         }
 
@@ -99,6 +105,9 @@ namespace InvoiceSystem.Api
             await service.Delete(id, cancellationToken);
             return NoContent();
         }
+
+        private void LogAnswer(object result)
+        => Com.LogControllerAnswer(logger, GetType(), result);
 
     }
 }

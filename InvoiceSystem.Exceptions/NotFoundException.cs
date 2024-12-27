@@ -9,7 +9,7 @@
         /// Конструктор по ID и названию типа
         /// </summary>
         public NotFoundException(Guid id, Type type)
-            : base($"Ошибка: объект типа {type.Name} с ID {id} не найден.")
+            : base($"Object of {type.Name} with ID {id} not found.")
         { }
 
         /// <summary>

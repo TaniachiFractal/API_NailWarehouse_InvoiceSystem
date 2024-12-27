@@ -1,4 +1,6 @@
-﻿namespace InvoiceSystem.Common
+﻿using Microsoft.Extensions.Logging;
+
+namespace InvoiceSystem.Common
 {
     /// <summary>
     /// Общие константы и методы
@@ -41,5 +43,23 @@
         /// </summary>
         public static string NewString(string startPiece)
             => $"{startPiece}{Guid.NewGuid():N}";
+
+        private const string MyErrorMark = "@@@@@";
+
+        /// <summary>
+        /// Залогировать ответ контроллера
+        /// </summary>
+        public static void LogControllerAnswer(ILogger logger, Type controllerType, object result)
+        {
+            logger.LogInformation(MyErrorMark + "Controller {CONTROLLER} returned data {@DATA}", controllerType.Name, result);
+        }
+
+        /// <summary>
+        /// Залогировать ошибку
+        /// </summary>
+        public static void LogHandledError(ILogger logger, string source, Exception exception)
+        {
+            logger.LogInformation(MyErrorMark + "Object of type {TYPE} handled error {@ERROR}", source, exception);
+        }
     }
 }

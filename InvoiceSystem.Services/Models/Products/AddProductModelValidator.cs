@@ -26,7 +26,7 @@ namespace InvoiceSystem.Services.Models.Products
             RuleFor(x => x.Name)
                 .NotNull()
                 .NotEmpty()
-                .Length(Common.Com.MinLen, Common.Com.MaxNameLen);
+                .Length(Com.MinLen, Com.MaxNameLen);
         }
 
         /// <summary>

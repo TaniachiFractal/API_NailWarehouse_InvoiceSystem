@@ -41,7 +41,7 @@ namespace InvoiceSystem.Services.Tests.Services.DBObjectServices
             (
                 mapper,
                 new ProductReadRepository(dBContext),
-                new ProductWriteRepository(dBContext, dateTime),
+                new ProductWriteRepository(dBContext, dateTime, logger),
                 dBContext
             );
     }

@@ -1,9 +1,6 @@
-﻿using System.Configuration;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.TestHelper;
 using InvoiceSystem.Models.Interfaces;
-using InvoiceSystem.Repositories.Contracts.Customers;
-using InvoiceSystem.Repositories.Customers;
 using InvoiceSystem.Services.Models.Products;
 using InvoiceSystem.TestsBase;
 using Xunit;

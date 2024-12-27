@@ -1,7 +1,6 @@
 ﻿using Ahatornn.TestGenerator;
 using FluentValidation;
 using FluentValidation.TestHelper;
-using InvoiceSystem.Common;
 using InvoiceSystem.Models.Customers;
 using InvoiceSystem.Repositories.Contracts.Customers;
 using InvoiceSystem.Services.Models.Customers;

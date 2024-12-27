@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using FluentValidation.TestHelper;
-using InvoiceSystem.Models.Customers;
 using InvoiceSystem.Models.Products;
 using InvoiceSystem.Services.Models.Products;
 using InvoiceSystem.Services.Tests.Validators.BaseObjectModelValidators;

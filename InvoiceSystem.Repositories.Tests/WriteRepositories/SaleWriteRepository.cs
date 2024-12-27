@@ -50,6 +50,6 @@ namespace InvoiceSystem.Repositories.Tests.WriteRepositories
 
         /// <inheritdoc/>
         protected override IWriteRepository<Sale> Repository()
-            => new SaleWriteRepository(dBContext, dateTime);
+            => new SaleWriteRepository(dBContext, dateTime, logger);
     }
 }
