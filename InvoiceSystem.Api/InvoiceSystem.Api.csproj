@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="4.2.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+    <PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InvoiceSystem.Database.Contracts\InvoiceSystem.Database.Contracts.csproj" />
+    <ProjectReference Include="..\InvoiceSystem.Models.Interfaces\InvoiceSystem.Models.Interfaces.csproj" />
+    <ProjectReference Include="..\InvoiceSystem.Models\InvoiceSystem.Models.csproj" />
+    <ProjectReference Include="..\InvoiceSystem.Repositories\InvoiceSystem.Repositories.csproj" />
+    <ProjectReference Include="..\InvoiceSystem.Services\InvoiceSystem.Services.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InvoiceSystem.Common\InvoiceSystem.Common.csproj" />
+    <ProjectReference Include="..\InvoiceSystem.Database\InvoiceSystem.Database.csproj" />
+    <ProjectReference Include="..\InvoiceSystem.Exceptions\InvoiceSystem.Exceptions.csproj" />
+    <ProjectReference Include="..\InvoiceSystem.Repositories.Contracts\InvoiceSystem.Repositories.Contracts.csproj" />
+    <ProjectReference Include="..\InvoiceSystem.Services.Contracts\InvoiceSystem.Services.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
