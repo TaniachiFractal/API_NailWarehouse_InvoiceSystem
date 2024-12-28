@@ -53,18 +53,6 @@ namespace InvoiceSystem.Api.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// Получить данные всех таблиц в виде SQL запросов
-        /// </summary>
-        [HttpGet]
-        [ProducesType(typeof(string))]
-        public async Task<IActionResult> GetAllTablesAsSQLQueries(CancellationToken cancellationToken)
-        {
-            var result = await mainService.GetAllTablesAsSQLQueries(cancellationToken);
-            LogAnswer(result);
-            return Ok(result);
-        }
-
         private void LogAnswer(object result)
         => Com.LogControllerAnswer(logger, GetType(), result);
     }

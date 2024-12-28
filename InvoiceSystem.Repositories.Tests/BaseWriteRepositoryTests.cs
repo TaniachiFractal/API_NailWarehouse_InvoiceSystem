@@ -112,10 +112,7 @@ namespace InvoiceSystem.Repositories.Tests
 
             // Assert
             var result = dbSet.FirstOrDefault(x => x.Id == entity.Id);
-            if (result != null)
-            { result.DeletedDate.Should().NotBeNull(); }
-            else
-            { Assert.Fail(NotFoundErrorMessage); }
+            result.DeletedDate.Should().NotBeNull();
         }
 
         /// <summary>
@@ -144,16 +141,11 @@ namespace InvoiceSystem.Repositories.Tests
 
             // Assert
             var result = dbSet.FirstOrDefault(x => x.Id == entity.Id);
-            if (result != null)
-            {
-                result.Should()
-                    .NotBeNull()
-                    .And.BeEquivalentTo(entityUpd)
-                    .And.NotBeEquivalentTo(oldEntity);
-                result.UpdatedDate.Should().NotBeNull();
-            }
-            else
-            { Assert.Fail(NotFoundErrorMessage); }
+            result.Should()
+                .NotBeNull()
+                .And.BeEquivalentTo(entityUpd)
+                .And.NotBeEquivalentTo(oldEntity);
+            result.UpdatedDate.Should().NotBeNull();
         }
 
         private void ClearDbSet()

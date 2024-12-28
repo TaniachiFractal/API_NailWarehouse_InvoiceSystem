@@ -109,6 +109,8 @@ namespace InvoiceSystem.Api
             {
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
                     $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
+                    "InvoiceSystem.Models.Interfaces.xml"));
             });
 
             var app = builder.Build();
