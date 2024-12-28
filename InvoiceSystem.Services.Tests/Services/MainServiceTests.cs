@@ -45,56 +45,10 @@ namespace InvoiceSystem.Services.Tests.Services
                 new CustomerReadRepository(dBContext),
                 new InvoiceReadRepository(dBContext),
                 new ProductReadRepository(dBContext),
-                new SaleReadRepository(dBContext),
-                dateTime
+                new SaleReadRepository(dBContext)
                 );
 
             ClearDb();
-        }
-
-        /// <summary>
-        /// Получение всех таблиц в виде SQL ничего не возвращает
-        /// </summary>
-        [Fact]
-        public async Task GetAllTablesAsSQLQueriesShouldReturnEmpty()
-        {
-            // Act
-            var result = await service.GetAllTablesAsSQLQueries(cancellationToken);
-
-            // Assert
-            result.Should().Be(string.Empty);
-        }
-
-        /// <summary>
-        /// Получение всех таблиц в виде SQL возвращает 4 строки команд добавления
-        /// </summary>
-        [Fact]
-        public async Task GetAllTablesAsSQLQueriesShouldReturn4InsertQueries()
-        {
-            // Assert
-            var customer = TestEntityProvider.Shared.Create<Customer>();
-            var invoice = TestEntityProvider.Shared.Create<Invoice>();
-            var product = TestEntityProvider.Shared.Create<Product>();
-            var sale = TestEntityProvider.Shared.Create<Sale>();
-
-            dBContext.Customers.Add(customer);
-            dBContext.Invoices.Add(invoice);
-            dBContext.Products.Add(product);
-            dBContext.Sales.Add(sale);
-
-            dBContext.SaveChanges();
-
-            // Act
-            var result = await service.GetAllTablesAsSQLQueries(cancellationToken);
-
-            // Assert
-            result.Should().Be
-            (
-                $"INSERT INTO Customers (Id, Name, INN, Address, CreatedDate) VALUES ('{customer.Id}', N'{customer.Name}', '{customer.INN}', N'{customer.Address}', '{dateTime.UtcNow:yyyy-MM-dd}');\n" +
-                $"INSERT INTO Invoices(Id, CustomerId, ExecutionDate, CreatedDate) VALUES('{invoice.Id}', '{invoice.CustomerId}', '{invoice.ExecutionDate:yyyy-MM-dd}', '{dateTime.UtcNow:yyyy-MM-dd}');\n" +
-                $"INSERT INTO Products(Id, Name, Price, CreatedDate) VALUES('{product.Id}', N'{product.Name}', {product.Price.ToString(new CultureInfo("en-US"))}, '{dateTime.UtcNow:yyyy-MM-dd}');\n" +
-                $"INSERT INTO Sales (Id, ProductId, InvoiceId, SoldCount, CreatedDate) VALUES ('{sale.Id}', '{sale.ProductId}', '{sale.InvoiceId}', '{sale.SoldCount}', '{dateTime.UtcNow:yyyy-MM-dd}');\n"
-                );
         }
 
         /// <summary>

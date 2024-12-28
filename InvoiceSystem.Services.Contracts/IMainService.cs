@@ -12,9 +12,5 @@ namespace InvoiceSystem.Services.Contracts
         /// </summary>
         Task<FullInvoiceInfoModel> GetFullInvoiceInfo(Guid invoiceId, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// Получить данные всех таблиц как SQL запросы
-        /// </summary>
-        Task<string> GetAllTablesAsSQLQueries(CancellationToken cancellationToken);
     }
 }

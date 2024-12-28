@@ -56,8 +56,7 @@ namespace InvoiceSystem.Api.Tests.Controllers
                     new CustomerReadRepository(dBContext),
                     new InvoiceReadRepository(dBContext),
                     new ProductReadRepository(dBContext),
-                    new SaleReadRepository(dBContext),
-                    fixture.DateTimeMock
+                    new SaleReadRepository(dBContext)
                     ),
                 mapper,
                 logger
@@ -134,33 +133,6 @@ namespace InvoiceSystem.Api.Tests.Controllers
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.IsAssignableFrom<FullInvoiceInfoApiModel>(okResult.Value);
-        }
-
-        /// <summary>
-        /// Получение всех таблиц в виде SQL работает
-        /// </summary>
-        [Fact]
-        public async Task GetAllTablesAsSQLQueriesWorks()
-        {
-            // Arrange
-            var customer = TestEntityProvider.Shared.Create<Customer>();
-            var invoice = TestEntityProvider.Shared.Create<Invoice>();
-            var product = TestEntityProvider.Shared.Create<Product>();
-            var sale = TestEntityProvider.Shared.Create<Sale>();
-
-            dBContext.Customers.Add(customer);
-            dBContext.Invoices.Add(invoice);
-            dBContext.Products.Add(product);
-            dBContext.Sales.Add(sale);
-
-            dBContext.SaveChanges();
-
-            // Act
-            var result = await controller.GetAllTablesAsSQLQueries(cancellationToken);
-
-            // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.IsAssignableFrom<string>(okResult.Value);
         }
 
     }

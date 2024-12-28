@@ -23,7 +23,7 @@ namespace InvoiceSystem.Repositories.Tests.WriteRepositories
         protected override void ChangeOwnFields(Invoice obj)
         {
             obj.CustomerId = Guid.NewGuid();
-            obj.ExecutionDate = dateTime.Random.Date;
+            obj.ExecutionDate = dateTime.UtcNow.Date;
         }
 
         /// <inheritdoc/>
